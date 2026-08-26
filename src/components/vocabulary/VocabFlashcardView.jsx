@@ -152,11 +152,20 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
       >
         <motion.div
           animate={{ rotateY: isFlipped ? 180 : 0 }}
-          transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+          transition={{ duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
           className="w-full h-full relative transform-style-preserve-3d"
         >
           {/* FRONT SIDE WITH SHADER BACKGROUND */}
-          <div className="absolute inset-0 backface-hidden rounded-3xl p-8 bg-slate-950 border border-indigo-500/30 shadow-2xl shadow-indigo-950/60 flex flex-col justify-between overflow-hidden">
+          <div
+            className={`absolute inset-0 rounded-3xl p-8 bg-slate-950 border border-indigo-500/30 shadow-2xl shadow-indigo-950/60 flex flex-col justify-between overflow-hidden transition-opacity duration-300 ${
+              isFlipped ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              transform: 'rotateY(0deg)',
+            }}
+          >
             {/* Dynamic WebGL Rising Flame Shader */}
             <ShaderBackground color1={palette.color1} color2={palette.color2} color3={palette.color3} speed={0.9} />
 
@@ -191,7 +200,16 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
           </div>
 
           {/* BACK SIDE WITH SHADER BACKGROUND */}
-          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl p-8 bg-slate-950 border border-indigo-500/30 shadow-2xl shadow-indigo-950/60 flex flex-col justify-between overflow-hidden">
+          <div
+            className={`absolute inset-0 rounded-3xl p-8 bg-slate-950 border border-indigo-500/30 shadow-2xl shadow-indigo-950/60 flex flex-col justify-between overflow-hidden transition-opacity duration-300 ${
+              !isFlipped ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              transform: 'rotateY(180deg)',
+            }}
+          >
             {/* Dynamic WebGL Rising Flame Shader */}
             <ShaderBackground color1={palette.color1} color2={palette.color2} color3={palette.color3} speed={0.9} />
 
