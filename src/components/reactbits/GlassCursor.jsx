@@ -2,29 +2,25 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, useSpring, useMotionValue } from 'framer-motion';
 
 export default function GlassCursor({
-  size = 56,
-  dotSize = 6,
-  dotColor = '#a855f7', // Neon Purple
-  blur = 6,
-  border = 'rgba(255, 255, 255, 0.35)',
-  glowColor = 'rgba(168, 85, 247, 0.3)',
+  size = 140, // Large refractive bubble lens
+  refractionStrength = 24,
+  chromaticAberration = true,
+  glowRing = true,
+  className = '',
 }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  // Motion values for smooth cursor tracking
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
+  const mouseX = useMotionValue(-500);
+  const mouseY = useMotionValue(-500);
 
-  // Spring physics for smooth fluid trailing
-  const springConfig = { damping: 28, stiffness: 350, mass: 0.5 };
+  // Ultra-fluid spring tracking
+  const springConfig = { damping: 26, stiffness: 300, mass: 0.4 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    // Disable on touch devices
     if (window.matchMedia('(pointer: coarse)').matches) {
       setIsTouchDevice(true);
       return;
@@ -35,7 +31,6 @@ export default function GlassCursor({
       mouseY.set(e.clientY);
       if (!isVisible) setIsVisible(true);
 
-      // Check if hovering over clickable element
       const target = e.target;
       const isClickable =
         target.closest('button') ||
@@ -47,21 +42,15 @@ export default function GlassCursor({
       setIsHovered(!!isClickable);
     };
 
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
@@ -69,23 +58,57 @@ export default function GlassCursor({
 
   if (isTouchDevice || !isVisible) return null;
 
-  const currentSize = isHovered ? size * 1.35 : isClicking ? size * 0.8 : size;
+  const currentSize = isHovered ? size * 1.25 : size;
 
   return (
     <>
-      {/* SVG Chromatic Aberration & Refraction Filter */}
-      <svg className="hidden">
+      {/* SVG Fisheye Refraction & Chromatic Aberration Filter */}
+      <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
         <defs>
-          <filter id="glass-distortion">
-            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+          <filter id="glass-lens-refract" x="-50%" y="-50%" width="200%" height="200%">
+            {/* Spherize / Fisheye Displacement Map */}
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" result="noise" />
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="noise"
+              scale={refractionStrength}
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="displaced"
+            />
+            {chromaticAberration && (
+              <>
+                <feColorMatrix
+                  in="displaced"
+                  type="matrix"
+                  values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"
+                  result="red"
+                />
+                <feOffset in="red" dx="1.5" dy="0" result="redOffset" />
+                <feColorMatrix
+                  in="displaced"
+                  type="matrix"
+                  values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"
+                  result="green"
+                />
+                <feColorMatrix
+                  in="displaced"
+                  type="matrix"
+                  values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"
+                  result="blue"
+                />
+                <feOffset in="blue" dx="-1.5" dy="0" result="blueOffset" />
+                <feBlend in="redOffset" in2="green" mode="screen" result="rg" />
+                <feBlend in="rg" in2="blueOffset" mode="screen" result="finalColor" />
+              </>
+            )}
           </filter>
         </defs>
       </svg>
 
-      {/* Floating Glass Lens Follower */}
+      {/* 3D Glass Bubble / Optical Refraction Lens */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-50 rounded-full select-none"
+        className={`fixed top-0 left-0 pointer-events-none z-50 rounded-full select-none ${className}`}
         style={{
           x: smoothX,
           y: smoothY,
@@ -93,41 +116,36 @@ export default function GlassCursor({
           translateY: '-50%',
           width: currentSize,
           height: currentSize,
-          backdropFilter: `blur(${blur}px) saturate(180%)`,
-          WebkitBackdropFilter: `blur(${blur}px) saturate(180%)`,
-          backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.04)',
-          border: `1px solid ${isHovered ? 'rgba(255, 255, 255, 0.5)' : border}`,
-          boxShadow: `0 8px 32px 0 rgba(0, 0, 0, 0.35), inset 0 0 16px rgba(255, 255, 255, 0.15), 0 0 20px -3px ${glowColor}`,
+          // Refractive Fish-Eye Filter & Backdrop Distortion
+          backdropFilter: 'url(#glass-lens-refract) blur(0.6px) saturate(140%)',
+          WebkitBackdropFilter: 'url(#glass-lens-refract) blur(0.6px) saturate(140%)',
+          background: 'radial-gradient(circle at 35% 35%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.02) 65%, rgba(0,0,0,0.15) 100%)',
+          // Luminous 3D Glass Caustic & Chromatic Rim
+          border: '1.5px solid rgba(255, 255, 255, 0.45)',
+          boxShadow: `
+            inset 0 0 24px rgba(255, 255, 255, 0.35),
+            inset 0 8px 16px rgba(255, 255, 255, 0.4),
+            inset 0 -8px 16px rgba(0, 0, 0, 0.25),
+            0 0 35px -5px rgba(56, 189, 248, 0.45),
+            0 0 20px -2px rgba(236, 72, 153, 0.35),
+            0 12px 30px rgba(0, 0, 0, 0.35)
+          `,
         }}
         transition={{
           type: 'spring',
           damping: 24,
-          stiffness: 320,
+          stiffness: 300,
         }}
       >
-        {/* Glass Refraction Specular Highlights */}
-        <div className="absolute top-1.5 left-2 w-4 h-2 rounded-full bg-white/40 blur-[1px] rotate-[-25deg]" />
-      </motion.div>
+        {/* Top 3D Specular Curved Reflection Highlight */}
+        <div className="absolute top-2.5 left-4 right-4 h-6 rounded-full bg-gradient-to-b from-white/45 to-transparent blur-[1px] pointer-events-none" />
 
-      {/* Center Micro Pointer Dot */}
-      <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-50 rounded-full select-none"
-        style={{
-          x: mouseX,
-          y: mouseY,
-          translateX: '-50%',
-          translateY: '-50%',
-          width: dotSize,
-          height: dotSize,
-          backgroundColor: dotColor,
-          boxShadow: `0 0 10px ${dotColor}, 0 0 4px #ffffff`,
-        }}
-        animate={{
-          scale: isClicking ? 1.5 : isHovered ? 0.6 : 1,
-          opacity: isHovered ? 0.4 : 1,
-        }}
-        transition={{ duration: 0.15 }}
-      />
+        {/* Bottom Caustic Rim Reflection */}
+        <div className="absolute bottom-2 left-6 right-6 h-3 rounded-full bg-gradient-to-t from-cyan-300/30 to-transparent blur-[1px] pointer-events-none" />
+
+        {/* Center Crosshair / Precision Aiming Point */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8] pointer-events-none" />
+      </motion.div>
     </>
   );
 }
