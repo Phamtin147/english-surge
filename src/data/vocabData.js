@@ -9,36 +9,36 @@ export const VOCAB_CATEGORIES = [
 ];
 
 export const VOCAB_LIST = [
-  // ==========================================
-  // --- 💻 CÔNG NGHỆ & CNTT (IT & TECH) ---
-  // ==========================================
+  // =========================================================================
+  // --- 💻 CÔNG NGHỆ & CNTT (IT & COMPUTER SCIENCE) ---
+  // =========================================================================
   {
     id: 'it-1',
     word: 'Scalability',
     ipa: '/ˌskeɪ.ləˈbɪl.ə.ti/',
     partOfSpeech: 'noun',
-    vietnamese: 'Khả năng mở rộng (hệ thống)',
+    vietnamese: 'Khả năng mở rộng hệ thống',
     category: 'it',
     level: 'B2',
     definition: 'The capacity to change in size or scale to handle growing amounts of work.',
     example: 'Cloud architecture ensures high scalability during traffic surges.',
     exampleVi: 'Kiến trúc đám mây đảm bảo khả năng mở rộng cao trong các đợt lưu lượng truy cập tăng vọt.',
-    collocations: ['system scalability', 'scalability bottleneck', 'horizontal scalability'],
-    mnemonic: 'Tưởng tượng "scale" là cái thang leo lên, mở rộng hệ thống lên nấc cao hơn mà không sập.'
+    collocations: ['system scalability', 'horizontal scalability', 'scalability bottleneck'],
+    mnemonic: 'Scale (cái thang) -> Mở rộng hệ thống lên nấc cao hơn mà không sập.'
   },
   {
     id: 'it-2',
     word: 'Deployment',
     ipa: '/dɪˈplɔɪ.mənt/',
     partOfSpeech: 'noun',
-    vietnamese: 'Triển khai (phần mềm / hệ thống)',
+    vietnamese: 'Triển khai phần mềm lên server',
     category: 'it',
     level: 'B1',
     definition: 'The action of bringing resources into effective action or releasing software to production.',
-    example: 'We automated our CI/CD pipeline for seamless deployment.',
-    exampleVi: 'Chúng tôi tự động hóa quy trình CI/CD để việc triển khai diễn ra liền mạch.',
+    example: 'We automated our CI/CD pipeline for seamless zero-downtime deployment.',
+    exampleVi: 'Chúng tôi tự động hóa quy trình CI/CD để việc triển khai diễn ra liền mạch không gián đoạn.',
     collocations: ['continuous deployment', 'production deployment', 'deployment script'],
-    mnemonic: 'Deploy (triển khai) + ment -> đưa code từ máy nội bộ lên server chạy thật.'
+    mnemonic: 'Deploy + ment -> Đưa code từ máy cá nhân lên server production cho người dùng.'
   },
   {
     id: 'it-3',
@@ -49,10 +49,10 @@ export const VOCAB_LIST = [
     category: 'it',
     level: 'B2',
     definition: 'A flaw in a system or design that can be exploited by an attacker.',
-    example: 'The security team patched a critical zero-day vulnerability.',
-    exampleVi: 'Đội ngũ an ninh mạng đã vá một lỗ hổng zero-day nghiêm trọng.',
+    example: 'The security team patched a critical zero-day vulnerability in the gateway.',
+    exampleVi: 'Đội ngũ an ninh mạng đã vá một lỗ hổng zero-day nghiêm trọng ở cổng kết nối.',
     collocations: ['security vulnerability', 'exploit a vulnerability', 'patch a vulnerability'],
-    mnemonic: 'Gốc từ "vulnerable" (dễ bị tổn thương) -> hệ thống có kẽ hở cho hacker tấn công.'
+    mnemonic: 'Gốc từ "vulnerable" (dễ tổn thương) -> Kẽ hở để hacker đột nhập.'
   },
   {
     id: 'it-4',
@@ -66,35 +66,35 @@ export const VOCAB_LIST = [
     example: 'Refactoring messy legacy code improved execution speed and readability.',
     exampleVi: 'Tái cấu trúc mã nguồn cũ giúp cải thiện tốc độ thực thi và độ dễ đọc.',
     collocations: ['code refactoring', 'refactoring process', 'legacy refactoring'],
-    mnemonic: 'Re (lại) + Factor (cấu trúc) -> dọn dẹp lại code cho sạch đẹp mà app vẫn chạy như cũ.'
+    mnemonic: 'Re (lại) + Factor (cấu trúc) -> Dọn dẹp code cho gọn gàng sạch đẹp.'
   },
   {
     id: 'it-5',
     word: 'Latency',
     ipa: '/ˈleɪ.tən.si/',
     partOfSpeech: 'noun',
-    vietnamese: 'Độ trễ (mạng, phản hồi hệ thống)',
+    vietnamese: 'Độ trễ truyền dữ liệu mạng',
     category: 'it',
     level: 'B2',
     definition: 'The delay before a transfer of data begins following an instruction for its transfer.',
     example: 'Using edge computing drastically reduced network latency for global users.',
     exampleVi: 'Sử dụng điện toán biên giúp giảm mạnh độ trễ mạng cho người dùng toàn cầu.',
     collocations: ['low latency', 'network latency', 'latency spikes'],
-    mnemonic: 'Late (muộn) -> Latency là độ trễ thời gian chờ server phản hồi.'
+    mnemonic: 'Late (muộn) -> Thời gian chờ đợi dữ liệu phản hồi từ máy chủ.'
   },
   {
     id: 'it-6',
     word: 'Deprecate',
     ipa: '/ˈdep.rə.keɪt/',
     partOfSpeech: 'verb',
-    vietnamese: 'Khai tử / Ngưng hỗ trợ tính năng cũ',
+    vietnamese: 'Khai tử, ngưng hỗ trợ tính năng cũ',
     category: 'it',
     level: 'C1',
     definition: 'To declare a software feature or API obsolete and advise against its use.',
     example: 'The old authentication API will be deprecated in the upcoming v3 release.',
     exampleVi: 'API xác thực cũ sẽ bị khai tử trong bản phát hành v3 sắp tới.',
     collocations: ['deprecated function', 'mark as deprecated', 'deprecate an API'],
-    mnemonic: 'De- (hạ xuống) -> Không còn khuyến khích dùng nữa, chuẩn bị xóa sổ.'
+    mnemonic: 'De- (hạ xuống) -> Không còn khuyến khích dùng nữa, chuẩn bị xóa sổ hoàn toàn.'
   },
   {
     id: 'it-7',
@@ -104,11 +104,11 @@ export const VOCAB_LIST = [
     vietnamese: 'Kiến trúc dịch vụ siêu nhỏ',
     category: 'it',
     level: 'B2',
-    definition: 'An architectural style that structures an application as a collection of small, autonomous services.',
-    example: 'Migrating from a monolith to microservices enabled independent team deployments.',
-    exampleVi: 'Chuyển từ khối đơn sang vi dịch vụ cho phép các đội triển khai độc lập.',
-    collocations: ['microservices architecture', 'microservice communication', 'decouple microservices'],
-    mnemonic: 'Micro (nhỏ) + Services (dịch vụ) -> Chia nhỏ app thành từng dịch vụ độc lập.'
+    definition: 'An architectural style structuring an application as a collection of small, autonomous services.',
+    example: 'Migrating to microservices allowed independent team deployments and high fault tolerance.',
+    exampleVi: 'Chuyển sang vi dịch vụ cho phép các đội triển khai độc lập và chịu lỗi cao.',
+    collocations: ['microservices architecture', 'decouple microservices', 'microservice container'],
+    mnemonic: 'Chia nhỏ app thành các dịch vụ độc lập như các khối Lego.'
   },
   {
     id: 'it-8',
@@ -118,25 +118,25 @@ export const VOCAB_LIST = [
     vietnamese: 'Bất đồng bộ (không chặn tiến trình)',
     category: 'it',
     level: 'B2',
-    definition: 'Not occurring at the same time; operations that run in the background without blocking execution.',
-    example: 'Asynchronous JavaScript allows the UI to stay responsive during API requests.',
-    exampleVi: 'JavaScript bất đồng bộ giúp giao diện phản hồi nhanh trong khi gọi API.',
-    collocations: ['asynchronous programming', 'async/await pattern', 'asynchronous event'],
-    mnemonic: 'A- (không) + Sync (đồng bộ) -> Xử lý ngầm, không cần đợi nhau.'
+    definition: 'Operations that execute in the background without blocking the main execution thread.',
+    example: 'Asynchronous JavaScript ensures UI responsiveness during heavy database fetches.',
+    exampleVi: 'JavaScript bất đồng bộ đảm bảo giao diện luôn mượt mà trong lúc tải dữ liệu lớn.',
+    collocations: ['asynchronous programming', 'async/await pattern', 'asynchronous event loop'],
+    mnemonic: 'A- (không) + Sync (đồng bộ) -> Xử lý ngầm, không bắt người dùng phải đứng đợi.'
   },
   {
     id: 'it-9',
     word: 'Idempotent',
     ipa: '/ˌaɪ.dəmˈpoʊ.tənt/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Bất biến khi lặp lại (gọi nhiều lần kết quả vẫn như một)',
+    vietnamese: 'Bất biến khi lặp lại (gọi nhiều lần kết quả vẫn như 1)',
     category: 'it',
     level: 'C1',
-    definition: 'Denoting an operation which can be applied multiple times without changing the result beyond the initial application.',
-    example: 'HTTP GET, PUT, and DELETE methods are designed to be idempotent.',
-    exampleVi: 'Các phương thức HTTP GET, PUT và DELETE được thiết kế có tính bất biến lặp lại.',
+    definition: 'Denoting an operation which can be applied multiple times without changing the result.',
+    example: 'Payment webhook handlers must be strictly idempotent to prevent double billing.',
+    exampleVi: 'Xử lý webhook thanh toán phải tuyệt đối bất biến lặp lại để tránh trừ tiền 2 lần.',
     collocations: ['idempotent API', 'idempotent operation', 'ensure idempotency'],
-    mnemonic: 'Gọi 1 lần hay 100 lần thì trạng thái database vẫn không bị trùng lặp.'
+    mnemonic: 'Dù mạng chập chờn gọi lại 10 lần thì hóa đơn vẫn chỉ trừ đúng 1 lần.'
   },
   {
     id: 'it-10',
@@ -146,188 +146,328 @@ export const VOCAB_LIST = [
     vietnamese: 'Đóng gói ứng dụng vào container (Docker)',
     category: 'it',
     level: 'B2',
-    definition: 'A lightweight form of virtualization that packages an application and its dependencies together.',
-    example: 'Containerization with Docker ensures the code runs identically across all environments.',
-    exampleVi: 'Đóng gói bằng Docker đảm bảo mã nguồn chạy giống hệt nhau trên mọi môi trường.',
+    definition: 'Packaging software code with all its dependencies so it runs uniformly on any infrastructure.',
+    example: 'Containerization with Docker eliminated the "it works on my machine" dilemma.',
+    exampleVi: 'Đóng gói bằng Docker đã loại bỏ hoàn toàn câu nói "chạy được trên máy em mà".',
     collocations: ['Docker containerization', 'container orchestration', 'container image'],
-    mnemonic: 'Container (thùng hàng) -> Bỏ code + thư viện vào thùng hàng để chở đi server nào cũng chạy.'
+    mnemonic: 'Thùng container chở hàng -> Chở code đi bất kỳ server Linux/Windows nào cũng chạy.'
   },
   {
     id: 'it-11',
     word: 'Concurrency',
     ipa: '/kənˈkɜːr.ən.si/',
     partOfSpeech: 'noun',
-    vietnamese: 'Xử lý đồng thời (nhiều tác vụ cùng lúc)',
+    vietnamese: 'Xử lý đồng thời nhiều tác vụ',
     category: 'it',
     level: 'C1',
-    definition: 'The ability of different parts of a program to execute out-of-order or in partial order without affecting outcome.',
-    example: 'Go routines provide lightweight concurrency for handling thousands of requests.',
-    exampleVi: 'Go routines cung cấp khả năng xử lý đồng thời cực nhẹ cho hàng ngàn yêu cầu.',
+    definition: 'The ability of different parts of a program to execute out-of-order without affecting final outcome.',
+    example: 'Go routines provide ultra-lightweight concurrency to serve millions of users.',
+    exampleVi: 'Go routines cung cấp khả năng xử lý đồng thời siêu nhẹ để phục vụ hàng triệu người dùng.',
     collocations: ['concurrency control', 'high concurrency', 'concurrency model'],
-    mnemonic: 'Con (cùng nhau) + Current (chạy) -> Nhiều tác vụ chạy song song cùng thời điểm.'
+    mnemonic: 'Nhiều luồng tác vụ cùng chạy đan xen thông minh không giẫm chân lên nhau.'
   },
   {
     id: 'it-12',
     word: 'Telemetry',
     ipa: '/təˈlem.ə.tri/',
     partOfSpeech: 'noun',
-    vietnamese: 'Hệ thống đo lường dữ liệu từ xa / Giám sát hiệu năng',
+    vietnamese: 'Đo lường giám sát dữ liệu từ xa',
     category: 'it',
     level: 'C1',
-    definition: 'The collection and automatic transmission of data from remote sources for monitoring.',
-    example: 'OpenTelemetry provides unified metrics, logs, and traces for distributed systems.',
-    exampleVi: 'OpenTelemetry cung cấp chỉ số, nhật ký và vết vết đồng nhất cho hệ thống phân tán.',
-    collocations: ['telemetry data', 'real-time telemetry', 'telemetry pipeline'],
-    mnemonic: 'Tele (từ xa) + Metry (đo đạc) -> Giám sát CPU/RAM/traffic từ xa.'
+    definition: 'The collection and automatic transmission of metrics, logs, and traces for performance monitoring.',
+    example: 'Real-time telemetry alerted developers to a sudden memory leak before users noticed.',
+    exampleVi: 'Hệ thống đo lường từ xa đã cảnh báo rò rỉ bộ nhớ trước khi người dùng kịp nhận ra.',
+    collocations: ['telemetry data', 'telemetry metrics', 'observability telemetry'],
+    mnemonic: 'Tele (từ xa) + Metry (đo đạc) -> Theo dõi sức khỏe server 24/7.'
+  },
+  {
+    id: 'it-13',
+    word: 'Polymorphism',
+    ipa: '/ˌpɑː.liˈmɔːr.fɪ.zəm/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Tính đa hình (trong OOP)',
+    category: 'it',
+    level: 'C1',
+    definition: 'The ability of different objects to respond to the same message or method invocation in unique ways.',
+    example: 'Polymorphism allows our payment processor to handle Stripe, PayPal, and Apple Pay seamlessly.',
+    exampleVi: 'Tính đa hình cho phép bộ xử lý thanh toán hỗ trợ Stripe, PayPal và Apple Pay một cách thống nhất.',
+    collocations: ['OOP polymorphism', 'runtime polymorphism', 'polymorphic behavior'],
+    mnemonic: 'Poly (nhiều) + Morph (hình thái) -> Cùng một hàm nhưng mỗi đối tượng xử lý theo cách riêng.'
+  },
+  {
+    id: 'it-14',
+    word: 'Middleware',
+    ipa: '/ˈmɪd.əl.wer/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Phần mềm trung gian xử lý request',
+    category: 'it',
+    level: 'B2',
+    definition: 'Software that acts as a bridge between an operating system or database and applications.',
+    example: 'We implemented authentication middleware to verify JWT tokens before route handlers.',
+    exampleVi: 'Chúng tôi triển khai middleware xác thực để kiểm tra token JWT trước khi vào router.',
+    collocations: ['auth middleware', 'middleware pipeline', 'express middleware'],
+    mnemonic: 'Middle (ở giữa) -> Người gác cổng kiểm tra bảo mật ở giữa client và server.'
+  },
+  {
+    id: 'it-15',
+    word: 'Orchestration',
+    ipa: '/ˌɔːr.kəˈstreɪ.ʃən/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Điều phối tự động (Kubernetes)',
+    category: 'it',
+    level: 'C1',
+    definition: 'The automated configuration, coordination, and management of computer systems and software.',
+    example: 'Kubernetes provides container orchestration, automatically scaling pods based on CPU load.',
+    exampleVi: 'Kubernetes cung cấp khả năng điều phối container, tự động co giãn pod theo tải CPU.',
+    collocations: ['container orchestration', 'cloud orchestration', 'service orchestration'],
+    mnemonic: 'Như nhạc trưởng (orchestra) chỉ huy cả dàn nhạc container phối hợp nhịp nhàng.'
+  },
+  {
+    id: 'it-16',
+    word: 'Immutability',
+    ipa: '/ɪˌmjuː.təˈbɪl.ə.ti/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Tính bất biến (không thể bị sửa đổi)',
+    category: 'it',
+    level: 'C1',
+    definition: 'The quality of being unable to be changed or modified after creation.',
+    example: 'React state immutability ensures predictable UI rendering and easy debugging.',
+    exampleVi: 'Tính bất biến của React state đảm bảo giao diện render chính xác và dễ debug.',
+    collocations: ['state immutability', 'immutable data structures', 'enforce immutability'],
+    mnemonic: 'Tạo ra rồi là giữ nguyên vĩnh viễn, muốn đổi phải tạo bản sao mới.'
+  },
+  {
+    id: 'it-17',
+    word: 'Deadlock',
+    ipa: '/ˈded.lɑːk/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Tắc nghẽn bế tắc (trong xử lý luồng)',
+    category: 'it',
+    level: 'B2',
+    definition: 'A situation in which two computer processes are unable to complete because each is waiting for the other to release a resource.',
+    example: 'Improper mutex locking caused a database deadlock during concurrent transactions.',
+    exampleVi: 'Khóa mutex không đúng cách đã gây ra bế tắc cơ sở dữ liệu giữa các giao dịch đồng thời.',
+    collocations: ['deadlock prevention', 'database deadlock', 'resolve a deadlock'],
+    mnemonic: 'Hai người cùng giữ chìa khóa của nhau và không ai chịu nhường -> Đứng hình toàn hệ thống.'
+  },
+  {
+    id: 'it-18',
+    word: 'Throughput',
+    ipa: '/ˈθruː.pʊt/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Lưu lượng xử lý (số request/giây)',
+    category: 'it',
+    level: 'B2',
+    definition: 'The amount of material or data that passes through a system or process per unit of time.',
+    example: 'Redis caching boosted database query throughput from 500 to 50,000 requests per second.',
+    exampleVi: 'Bộ nhớ đệm Redis đã tăng lưu lượng truy vấn từ 500 lên 50.000 yêu cầu mỗi giây.',
+    collocations: ['high throughput', 'network throughput', 'maximize throughput'],
+    mnemonic: 'Lượng hàng hóa (data) chảy qua đường ống trong 1 giây.'
   },
 
-  // ==========================================
-  // --- 💼 KINH DOANH & CÔNG SỞ (BUSINESS) ---
-  // ==========================================
+  // =========================================================================
+  // --- 💼 KINH DOANH & CÔNG SỞ (BUSINESS & CORPORATE) ---
+  // =========================================================================
   {
     id: 'biz-1',
     word: 'Negotiation',
     ipa: '/nəˌɡoʊ.ʃiˈeɪ.ʃən/',
     partOfSpeech: 'noun',
-    vietnamese: 'Đàm phán, thương lượng',
+    vietnamese: 'Thương lượng, đàm phán hợp đồng',
     category: 'business',
     level: 'B2',
-    definition: 'Discussion aimed at reaching an agreement.',
-    example: 'After three rounds of intense negotiation, both parties signed the contract.',
-    exampleVi: 'Sau ba vòng đàm phán căng thẳng, cả hai bên đã ký hợp đồng.',
+    definition: 'Discussion aimed at reaching an agreement between multiple parties.',
+    example: 'After three rounds of intense negotiation, both parties signed the joint venture contract.',
+    exampleVi: 'Sau ba vòng đàm phán căng thẳng, cả hai bên đã ký hợp đồng liên doanh.',
     collocations: ['contract negotiation', 'enter into negotiations', 'win-win negotiation'],
-    mnemonic: 'Thương lượng để tìm ra thỏa thuận đôi bên cùng có lợi (Win-Win).'
+    mnemonic: 'Thương thảo đôi bên cùng có lợi.'
   },
   {
     id: 'biz-2',
     word: 'Stakeholder',
     ipa: '/ˈsteɪkˌhoʊl.dər/',
     partOfSpeech: 'noun',
-    vietnamese: 'Bên liên quan (khách hàng, cổ đông, nhân sự)',
+    vietnamese: 'Bên liên quan trực tiếp đến dự án',
     category: 'business',
     level: 'B2',
-    definition: 'A person with an interest or concern in something, especially a business project.',
-    example: 'We must present the Q3 roadmap to all key stakeholders on Monday.',
-    exampleVi: 'Chúng ta phải trình bày lộ trình quý 3 cho tất cả các bên liên quan vào thứ Hai.',
+    definition: 'A person or party with an interest or concern in a business project or organization.',
+    example: 'We must present the Q4 financial roadmap to all key stakeholders on Monday.',
+    exampleVi: 'Chúng ta phải trình bày lộ trình tài chính quý 4 cho tất cả các bên liên quan vào thứ Hai.',
     collocations: ['key stakeholder', 'stakeholder engagement', 'stakeholder meeting'],
-    mnemonic: 'Hold (nắm giữ) Stake (phần lợi ích/cổ phần) -> Người có liên quan trực tiếp đến dự án.'
+    mnemonic: 'Nắm giữ phần lợi ích (stake) trong sự thành bại của dự án.'
   },
   {
     id: 'biz-3',
     word: 'Leverage',
     ipa: '/ˈlev.ər.ɪdʒ/',
     partOfSpeech: 'verb',
-    vietnamese: 'Tận dụng tối đa / Đòn bẩy lợi thế',
+    vietnamese: 'Tận dụng đòn bẩy lợi thế tối đa',
     category: 'business',
     level: 'C1',
-    definition: 'Use something to maximum advantage.',
-    example: 'The startup leveraged AI technologies to outperform established competitors.',
-    exampleVi: 'Công ty khởi nghiệp đã tận dụng công nghệ AI để vượt qua các đối thủ lâu năm.',
-    collocations: ['leverage technology', 'gain leverage', 'financial leverage'],
-    mnemonic: 'Cái đòn bẩy (lever) giúp nâng vật nặng với ít sức nhất -> Tận dụng lợi thế có sẵn.'
+    definition: 'To use existing resources, technology, or influence to maximum strategic advantage.',
+    example: 'The fintech startup leveraged AI automation to outperform legacy banking giants.',
+    exampleVi: 'Công ty khởi nghiệp fintech đã tận dụng tự động hóa AI để vượt qua các ông lớn ngân hàng.',
+    collocations: ['leverage technology', 'gain strategic leverage', 'financial leverage'],
+    mnemonic: 'Dùng chiếc đòn bẩy nhỏ để nâng tảng đá lớn.'
   },
   {
     id: 'biz-4',
     word: 'Feasibility',
     ipa: '/ˌfiː.zəˈbɪl.ə.ti/',
     partOfSpeech: 'noun',
-    vietnamese: 'Tính khả thi (dự án / ý tưởng)',
+    vietnamese: 'Tính khả thi trong thực tế',
     category: 'business',
     level: 'B2',
-    definition: 'The state or degree of being easily or conveniently done.',
-    example: 'We conducted a feasibility study before investing five million dollars.',
-    exampleVi: 'Chúng tôi đã tiến hành nghiên cứu tính khả thi trước khi đầu tư năm triệu đô la.',
-    collocations: ['feasibility study', 'assess the feasibility', 'economic feasibility'],
-    mnemonic: 'Feasible (làm được) -> Feasibility là khả năng làm được trong thực tế.'
+    definition: 'The state or degree of being easily or conveniently done within budget and timeline.',
+    example: 'We conducted a comprehensive feasibility study before committing five million dollars.',
+    exampleVi: 'Chúng tôi đã tiến hành nghiên cứu tính khả thi toàn diện trước khi rót 5 triệu đô la.',
+    collocations: ['feasibility study', 'assess feasibility', 'commercial feasibility'],
+    mnemonic: 'Feasible (làm được) -> Khả năng biến ý tưởng trên giấy thành hiện thực.'
   },
   {
     id: 'biz-5',
     word: 'Deliverable',
     ipa: '/dɪˈlɪv.ər.ə.bəl/',
     partOfSpeech: 'noun',
-    vietnamese: 'Sản phẩm bàn giao (trong dự án)',
+    vietnamese: 'Sản phẩm / Hạng mục bàn giao',
     category: 'business',
     level: 'B2',
-    definition: 'A thing able to be provided, especially as a product of a development process.',
-    example: 'The project manager outlined the core deliverables for sprint 4.',
-    exampleVi: 'Quản lý dự án đã vạch ra các sản phẩm bàn giao cốt lõi cho sprint 4.',
+    definition: 'A tangible product or service to be provided as a result of a project milestone.',
+    example: 'The project manager outlined the core deliverables due at the end of sprint 4.',
+    exampleVi: 'Quản lý dự án đã vạch ra các sản phẩm bàn giao cốt lõi vào cuối sprint 4.',
     collocations: ['key deliverable', 'project deliverables', 'milestone deliverable'],
-    mnemonic: 'Deliver (giao hàng) + able -> Những thứ phải bàn giao đúng hẹn cho khách.'
+    mnemonic: 'Deliver (giao hàng) -> Thứ phải bàn giao đúng hẹn cho khách hàng.'
   },
   {
     id: 'biz-6',
     word: 'Synergy',
     ipa: '/ˈsɪn.ər.dʒi/',
     partOfSpeech: 'noun',
-    vietnamese: 'Hiệu ứng cộng hưởng (1 + 1 > 2)',
+    vietnamese: 'Hiệu ứng cộng hưởng sức mạnh',
     category: 'business',
     level: 'C1',
-    definition: 'The interaction of elements that when combined produce a total effect greater than the sum of the individual elements.',
-    example: 'The merger created strong synergy across marketing and logistics departments.',
-    exampleVi: 'Thương vụ sáp nhập đã tạo ra sức mạnh cộng hưởng lớn giữa bộ phận marketing và hậu cần.',
-    collocations: ['create synergy', 'team synergy', 'strategic synergy'],
-    mnemonic: 'Syn (cùng nhau) + Energy (năng lượng) -> Hợp lực tạo ra sức mạnh vượt trội.'
+    definition: 'The interaction of elements that when combined produce a total effect greater than the sum of parts.',
+    example: 'The merger created massive synergy between marketing and distribution channels.',
+    exampleVi: 'Vụ sáp nhập đã tạo ra sự cộng hưởng lớn giữa kênh marketing và phân phối.',
+    collocations: ['create synergy', 'team synergy', 'operational synergy'],
+    mnemonic: '1 + 1 > 2 -> Hai phòng ban hợp tác tạo ra doanh thu gấp đôi.'
   },
   {
     id: 'biz-7',
     word: 'Benchmark',
     ipa: '/ˈbentʃ.mɑːrk/',
     partOfSpeech: 'noun',
-    vietnamese: 'Tiêu chuẩn đối sánh / Điểm chuẩn so sánh',
+    vietnamese: 'Tiêu chuẩn đối sánh chuẩn mực',
     category: 'business',
     level: 'B2',
-    definition: 'A standard or point of reference against which things may be compared or assessed.',
-    example: 'Our customer satisfaction score serves as the industry benchmark.',
+    definition: 'A standard or point of reference against which others may be compared or assessed.',
+    example: 'Our customer satisfaction score serves as the new industry benchmark.',
     exampleVi: 'Điểm số hài lòng của khách hàng chúng tôi là tiêu chuẩn đối chuẩn cho toàn ngành.',
     collocations: ['industry benchmark', 'set a benchmark', 'performance benchmark'],
-    mnemonic: 'Vạch mốc đo lường để xem mình đứng ở đâu so với đối thủ.'
+    mnemonic: 'Cột mốc chuẩn mực để đo xem mình đứng thứ mấy trên thị trường.'
   },
   {
     id: 'biz-8',
     word: 'Due Diligence',
     ipa: '/ˌduː ˈdɪl.ə.dʒəns/',
     partOfSpeech: 'noun',
-    vietnamese: 'Thẩm định chuyên sâu (trước khi đầu tư/mua bán)',
+    vietnamese: 'Thẩm định chuyên sâu (trước khi đầu tư)',
     category: 'business',
     level: 'C1',
-    definition: 'Comprehensive appraisal of a business undertaken by a prospective buyer.',
-    example: 'The venture capital fund spent two months doing due diligence on the startup.',
-    exampleVi: 'Quỹ đầu tư mạo hiểm đã dành hai tháng để thẩm định chuyên sâu công ty khởi nghiệp.',
+    definition: 'Comprehensive appraisal of a business undertaken by a prospective buyer or investor.',
+    example: 'The venture capital fund spent two months conducting legal due diligence on the firm.',
+    exampleVi: 'Quỹ đầu tư mạo hiểm đã dành hai tháng để thẩm định pháp lý chuyên sâu công ty.',
     collocations: ['conduct due diligence', 'financial due diligence', 'due diligence audit'],
-    mnemonic: 'Diligence (chăm chỉ/cẩn trọng) -> Kiểm tra rà soát tỉ mỉ từng con số trước khi rót tiền.'
+    mnemonic: 'Soi xét từng hợp đồng, con số tài chính trước khi xuống tiền đầu tư.'
   },
   {
     id: 'biz-9',
     word: 'Bandwidth',
     ipa: '/ˈbænd.wɪdtθ/',
     partOfSpeech: 'noun',
-    vietnamese: 'Khả năng / Quỹ thời gian để nhận thêm việc',
+    vietnamese: 'Quỹ thời gian / Sức chứa công việc',
     category: 'business',
     level: 'B2',
-    definition: 'The capacity or resources needed to handle a task or workload.',
+    definition: 'The mental capacity or time resources needed to handle a task or project workload.',
     example: 'I would love to help with this proposal, but I do not have the bandwidth this week.',
-    exampleVi: 'Tôi rất muốn giúp đỡ bản đề xuất này, nhưng tuần này tôi không còn đủ quỹ thời gian.',
-    collocations: ['lack the bandwidth', 'have the bandwidth', 'mental bandwidth'],
-    mnemonic: 'Từ gốc mạng máy tính (băng thông) -> Trong công sở nghĩa là "quỹ thời gian/sức chứa công việc".'
+    exampleVi: 'Tôi rất muốn giúp bản đề xuất này, nhưng tuần này tôi không còn đủ quỹ thời gian.',
+    collocations: ['have the bandwidth', 'lack the bandwidth', 'mental bandwidth'],
+    mnemonic: 'Băng thông não/thời gian đã đầy, không nhận thêm task được nữa.'
   },
   {
     id: 'biz-10',
     word: 'Retrospective',
     ipa: '/ˌret.rəˈspek.tɪv/',
     partOfSpeech: 'noun',
-    vietnamese: 'Buổi họp nhìn lại / Rút kinh nghiệm cuối kỳ',
+    vietnamese: 'Cuộc họp nhìn lại và rút kinh nghiệm',
     category: 'business',
     level: 'B2',
-    definition: 'A meeting held by a project team at the end of a sprint to discuss what went well and what could be improved.',
-    example: 'During the sprint retrospective, we identified three process bottlenecks.',
+    definition: 'A meeting held by a project team at the end of a sprint to review what went well and improve.',
+    example: 'During the sprint retrospective, we identified three workflow bottlenecks.',
     exampleVi: 'Trong buổi họp nhìn lại sprint, chúng tôi đã chỉ ra ba nút thắt cổ chai trong quy trình.',
     collocations: ['sprint retrospective', 'hold a retrospective', 'retrospective action items'],
-    mnemonic: 'Retro (nhìn lại quá khứ) -> Họp đánh giá những gì làm tốt và chưa tốt.'
+    mnemonic: 'Retro (nhìn lại quá khứ) -> Rút bài học để làm tốt hơn ở kỳ tiếp theo.'
+  },
+  {
+    id: 'biz-11',
+    word: 'Acquisition',
+    ipa: '/ˌæk.wəˈzɪʃ.ən/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Thương vụ mua lại doanh nghiệp',
+    category: 'business',
+    level: 'B2',
+    definition: 'An asset or object bought or obtained, typically by a corporation taking over another firm.',
+    example: 'The tech giant announced the strategic acquisition of an AI analytics startup.',
+    exampleVi: 'Gã khổng lồ công nghệ đã công bố thương vụ mua lại chiến lược một startup phân tích AI.',
+    collocations: ['mergers and acquisitions (M&A)', 'strategic acquisition', 'hostile acquisition'],
+    mnemonic: 'Acquire (thâu tóm) -> Mua đứt công ty khác để mở rộng thị phần.'
+  },
+  {
+    id: 'biz-12',
+    word: 'Overhead',
+    ipa: '/ˈoʊ.vər.hed/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Chi phí vận hành cố định (mặt bằng, điện nước)',
+    category: 'business',
+    level: 'B2',
+    definition: 'Ongoing business expenses not directly attributed to creating a product or service.',
+    example: 'Switching to remote work helped the company cut office overhead by 40%.',
+    exampleVi: 'Chuyển sang làm việc từ xa giúp công ty cắt giảm 40% chi phí vận hành văn phòng.',
+    collocations: ['overhead costs', 'reduce overhead', 'low overhead'],
+    mnemonic: 'Chi phí "đè lên đầu" hàng tháng như tiền thuê nhà, điện, lương bảo vệ dù có bán được hàng hay không.'
+  },
+  {
+    id: 'biz-13',
+    word: 'Monetization',
+    ipa: '/ˌmʌn.ə.t̬əˈzeɪ.ʃən/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Chiến lược kiếm tiền từ sản phẩm',
+    category: 'business',
+    level: 'B2',
+    definition: 'The process of converting something into legal tender or creating revenue from an asset/traffic.',
+    example: 'The app achieved millions of active users before rolling out its monetization model.',
+    exampleVi: 'Ứng dụng đã đạt hàng triệu người dùng trước khi triển khai mô hình kiếm tiền.',
+    collocations: ['monetization strategy', 'ad monetization', 'monetize user traffic'],
+    mnemonic: 'Money -> Biến lượt xem/người dùng thành tiền mặt.'
+  },
+  {
+    id: 'biz-14',
+    word: 'Pivot',
+    ipa: '/ˈpɪv.ət/',
+    partOfSpeech: 'verb',
+    vietnamese: 'Chuyển hướng chiến lược kinh doanh',
+    category: 'business',
+    level: 'B2',
+    definition: 'To shift a business strategy or product direction quickly in response to market feedback.',
+    example: 'When the B2C model struggled, the company pivoted to enterprise B2B software.',
+    exampleVi: 'Khi mô hình B2C gặp khó, công ty đã chuyển hướng chiến lược sang phần mềm B2B cho doanh nghiệp.',
+    collocations: ['strategic pivot', 'pivot to B2B', 'successful pivot'],
+    mnemonic: 'Cắm một chân làm trụ và xoay hẳn sang hướng đi mới nhiều tiềm năng hơn.'
   },
 
-  // ==========================================
-  // --- ✈️ DU LỊCH & KHÁCH SẠN (TRAVEL) ---
-  // ==========================================
+  // =========================================================================
+  // --- ✈️ DU LỊCH & KHÁCH SẠN (TRAVEL & HOSPITALITY) ---
+  // =========================================================================
   {
     id: 'trav-1',
     word: 'Itinerary',
@@ -336,11 +476,11 @@ export const VOCAB_LIST = [
     vietnamese: 'Lịch trình chuyến đi chi tiết',
     category: 'travel',
     level: 'B1',
-    definition: 'A planned route or journey with a timetable.',
+    definition: 'A planned route or journey with a detailed schedule and destinations.',
     example: 'Our 5-day Tokyo itinerary includes visits to Shibuya, Shinjuku, and Mt. Fuji.',
     exampleVi: 'Lịch trình 5 ngày ở Tokyo của chúng tôi gồm ghé thăm Shibuya, Shinjuku và núi Phú Sĩ.',
     collocations: ['travel itinerary', 'plan an itinerary', 'detailed itinerary'],
-    mnemonic: 'Bản kế hoạch chi tiết từng ngày, từng giờ khi đi du lịch.'
+    mnemonic: 'Bản kế hoạch từng ngày từng giờ khi đi phượt/du lịch.'
   },
   {
     id: 'trav-2',
@@ -350,11 +490,11 @@ export const VOCAB_LIST = [
     vietnamese: 'Chỗ ở, nơi lưu trú',
     category: 'travel',
     level: 'B1',
-    definition: 'A room, group of rooms, or building in which someone may live or stay.',
+    definition: 'A room, group of rooms, or building in which someone may live or stay during travel.',
     example: 'We booked luxury beachfront accommodation in Da Nang.',
     exampleVi: 'Chúng tôi đã đặt chỗ nghỉ dưỡng sang trọng sát biển ở Đà Nẵng.',
-    collocations: ['book accommodation', 'luxury accommodation', 'temporary accommodation'],
-    mnemonic: 'Khách sạn, homestay, resort -> bất kỳ nơi nào để qua đêm khi du lịch.'
+    collocations: ['book accommodation', 'luxury accommodation', 'hotel accommodation'],
+    mnemonic: 'Khách sạn, resort, homestay để nghỉ ngơi qua đêm.'
   },
   {
     id: 'trav-3',
@@ -364,11 +504,11 @@ export const VOCAB_LIST = [
     vietnamese: 'Bộ phận hỗ trợ đặc biệt / Quản gia khách sạn',
     category: 'travel',
     level: 'C1',
-    definition: 'A hotel staff member whose job is to assist guests by booking tours, making reservations, etc.',
-    example: 'The concierge recommended an authentic local sushi bar and arranged our taxi.',
-    exampleVi: 'Bộ phận hỗ trợ khách sạn đã gợi ý quán sushi truyền thống và đặt xe taxi cho chúng tôi.',
-    collocations: ['hotel concierge', 'concierge service', 'concierge desk'],
-    mnemonic: 'Người trợ lý quyền năng ở sảnh khách sạn 5 sao lo trọn gói vé, bàn ăn, xe cộ.'
+    definition: 'A hotel employee whose job is to assist guests with bookings, reservations, and recommendations.',
+    example: 'The concierge recommended an authentic local sushi bar and booked our private tour.',
+    exampleVi: 'Bộ phận hỗ trợ khách sạn đã gợi ý quán sushi truyền thống và đặt tour riêng cho chúng tôi.',
+    collocations: ['hotel concierge', 'concierge desk', 'concierge service'],
+    mnemonic: 'Người trợ lý quyền năng ở sảnh khách sạn 5 sao lo trọn gói đặt bàn, vé xem kịch.'
   },
   {
     id: 'trav-4',
@@ -378,39 +518,39 @@ export const VOCAB_LIST = [
     vietnamese: 'Thời gian quá cảnh / Điểm dừng nối chuyến',
     category: 'travel',
     level: 'B1',
-    definition: 'A period of rest or waiting before further travel during a flight journey.',
-    example: 'We had a 6-hour layover in Singapore and explored the Jewel Changi airport.',
-    exampleVi: 'Chúng tôi có thời gian quá cảnh 6 tiếng ở Singapore và đã khám phá sân bay Jewel Changi.',
+    definition: 'A period of rest or waiting before further travel during a connecting flight journey.',
+    example: 'We had an 8-hour layover in Doha and took advantage of the free city transit tour.',
+    exampleVi: 'Chúng tôi có thời gian quá cảnh 8 tiếng ở Doha và đã tận dụng tour tham quan thành phố miễn phí.',
     collocations: ['long layover', 'layover flight', 'overnight layover'],
-    mnemonic: 'Nghỉ chân chờ chuyến bay tiếp theo tại sân bay trung gian.'
+    mnemonic: 'Dừng chân nghỉ ngơi ở sân bay trung gian trước khi bay tiếp chuyến thứ hai.'
   },
   {
     id: 'trav-5',
     word: 'Complimentary',
     ipa: '/ˌkɑːm.pləˈmen.tər.i/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Miễn phí kèm theo (dịch vụ khách sạn)',
+    vietnamese: 'Được tặng kèm miễn phí',
     category: 'travel',
     level: 'B2',
-    definition: 'Given or supplied free of charge as a courtesy.',
-    example: 'The resort provides complimentary buffet breakfast and airport shuttle service.',
-    exampleVi: 'Khu nghỉ dưỡng cung cấp bữa sáng tự chọn và dịch vụ đưa đón sân bay miễn phí.',
+    definition: 'Given or supplied free of charge as a courtesy by hotels or airlines.',
+    example: 'The resort provides complimentary buffet breakfast, airport shuttles, and sunset cocktails.',
+    exampleVi: 'Khu nghỉ dưỡng cung cấp bữa sáng tự chọn, xe đưa đón sân bay và cocktail ngắm hoàng hôn miễn phí.',
     collocations: ['complimentary breakfast', 'complimentary drinks', 'complimentary wifi'],
-    mnemonic: 'Được tặng kèm miễn phí như một lời tri ân từ khách sạn/hãng bay.'
+    mnemonic: 'Được tặng kèm như một món quà tri ân.'
   },
   {
     id: 'trav-6',
     word: 'Breathtaking',
     ipa: '/ˈbreθˌteɪ.kɪŋ/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Ngoạn mục, đẹp đến nghẹt thở',
+    vietnamese: 'Đẹp đến nghẹt thở, ngoạn mục',
     category: 'travel',
     level: 'B2',
-    definition: 'Astonishing or awe-inspiring in quality, so as to take one\'s breath away.',
-    example: 'The view from the mountain summit at sunrise was absolutely breathtaking.',
-    exampleVi: 'Cảnh sắc từ đỉnh núi lúc bình minh đẹp đến mức ngỡ ngàng nghẹt thở.',
-    collocations: ['breathtaking view', 'breathtaking scenery', 'breathtaking landscape'],
-    mnemonic: 'Breath (hơi thở) + Taking (cướp đi) -> Đẹp đến mức làm người ta nín thở.'
+    definition: 'Astonishing or awe-inspiring in beauty, so as to take one\'s breath away.',
+    example: 'The panoramic view of Ha Long Bay at sunset was absolutely breathtaking.',
+    exampleVi: 'Khung cảnh toàn cảnh vịnh Hạ Long lúc hoàng hôn đẹp đến mức ngỡ ngàng nghẹt thở.',
+    collocations: ['breathtaking view', 'breathtaking scenery', 'breathtaking panorama'],
+    mnemonic: 'Cướp đi hơi thở vì cảnh tượng quá hùng vĩ và choáng ngợp.'
   },
   {
     id: 'trav-7',
@@ -420,127 +560,155 @@ export const VOCAB_LIST = [
     vietnamese: 'Chuyến dã ngoại / Tour tham quan ngắn ngày',
     category: 'travel',
     level: 'B2',
-    definition: 'A short journey or trip, especially one taken as a leisure activity.',
-    example: 'We joined a guided snorkeling excursion to the nearby coral reef.',
-    exampleVi: 'Chúng tôi đã tham gia một chuyến dã ngoại lặn ngắm san hô có hướng dẫn viên.',
+    definition: 'A short journey or trip, especially one taken as a leisure excursion.',
+    example: 'We booked a day excursion to explore the ancient caves of Phong Nha.',
+    exampleVi: 'Chúng tôi đã đặt một chuyến dã ngoại trong ngày để khám phá các hang động cổ ở Phong Nha.',
     collocations: ['day excursion', 'guided excursion', 'boat excursion'],
-    mnemonic: 'Chuyến đi chơi ngắn trong ngày kết hợp vận động và khám phá.'
+    mnemonic: 'Chuyến đi chơi ngắn trong ngày kết hợp ngắm cảnh và vận động.'
   },
   {
     id: 'trav-8',
     word: 'Hospitality',
     ipa: '/ˌhɑː.spɪˈtæl.ə.ti/',
     partOfSpeech: 'noun',
-    vietnamese: 'Lòng hiếu khách / Ngành dịch vụ khách sạn',
+    vietnamese: 'Lòng hiếu khách / Ngành du lịch khách sạn',
     category: 'travel',
     level: 'B2',
-    definition: 'The friendly and generous reception and entertainment of guests, visitors, or strangers.',
-    example: 'Vietnamese locals are renowned worldwide for their warm hospitality.',
-    exampleVi: 'Người dân Việt Nam nổi tiếng khắp thế giới nhờ lòng hiếu khách nồng hậu.',
+    definition: 'The friendly and generous reception and entertainment of guests and visitors.',
+    example: 'Vietnamese locals are celebrated worldwide for their genuine, warm hospitality.',
+    exampleVi: 'Người dân Việt Nam được ngợi ca khắp thế giới nhờ lòng hiếu khách nồng hậu và chân thành.',
     collocations: ['warm hospitality', 'hospitality industry', 'genuine hospitality'],
-    mnemonic: 'Sự đón tiếp ân cần, niềm nở khiến du khách cảm thấy như ở nhà.'
+    mnemonic: 'Sự đón tiếp ân cần khiến du khách ấm lòng.'
+  },
+  {
+    id: 'trav-9',
+    word: 'Jet Lag',
+    ipa: '/ˈdʒet ˌlæɡ/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Mệt mỏi do lệch múi giờ bay',
+    category: 'travel',
+    level: 'B1',
+    definition: 'Extreme tiredness felt after a long flight across different time zones.',
+    example: 'It took me three days to recover from jet lag after flying from New York to Hanoi.',
+    exampleVi: 'Tôi mất ba ngày để hồi phục sau cơn mệt mỏi do lệch múi giờ khi bay từ New York về Hà Nội.',
+    collocations: ['suffer from jet lag', 'overcome jet lag', 'severe jet lag'],
+    mnemonic: 'Đồng hồ sinh học cơ thể chưa kịp thích nghi với múi giờ mới.'
+  },
+  {
+    id: 'trav-10',
+    word: 'Customs',
+    ipa: '/ˈkʌs.təmz/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Cửa khẩu hải quan kiểm tra hành lý',
+    category: 'travel',
+    level: 'B1',
+    definition: 'The place at an airport or port where officials check incoming goods and baggage.',
+    example: 'All passengers must declare duty-free items when passing through airport customs.',
+    exampleVi: 'Tất cả hành khách phải khai báo hàng miễn thuế khi đi qua cửa hải quan sân bay.',
+    collocations: ['clear customs', 'customs declaration', 'customs officer'],
+    mnemonic: 'Nơi kiểm tra hộ chiếu và soi chiếu hành lý xem có hàng cấm không.'
   },
 
-  // ==========================================
-  // --- ☕ ĐỜI SỐNG & GIAO TIẾP (DAILY LIFE) ---
-  // ==========================================
+  // =========================================================================
+  // --- ☕ ĐỜI SỐNG & GIAO TIẾP (DAILY LIFE & SOCIAL) ---
+  // =========================================================================
   {
     id: 'day-1',
     word: 'Procrastinate',
     ipa: '/prəˈkræs.tə.neɪt/',
     partOfSpeech: 'verb',
-    vietnamese: 'Trì hoãn, chần chừ việc cần làm',
+    vietnamese: 'Trì hoãn việc cần làm',
     category: 'daily',
     level: 'B2',
-    definition: 'To delay or postpone action; put off doing something.',
-    example: 'Stop procrastinating and finish your assignment before the midnight deadline.',
-    exampleVi: 'Đừng trì hoãn nữa và hãy hoàn thành bài tập trước hạn chót nửa đêm.',
-    collocations: ['procrastinate on tasks', 'chronic procrastinator', 'tendency to procrastinate'],
-    mnemonic: 'Việc hôm nay cứ để ngày mai -> thói quen trì hoãn.'
+    definition: 'To delay or postpone action; put off doing something habitually.',
+    example: 'Stop procrastinating on social media and finish your assignment before midnight.',
+    exampleVi: 'Đừng lướt mạng trì hoãn nữa và hãy hoàn thành bài tập trước nửa đêm.',
+    collocations: ['procrastinate on tasks', 'chronic procrastinator', 'stop procrastinating'],
+    mnemonic: 'Việc hôm nay cứ để ngày mai -> Căn bệnh lười trì hoãn.'
   },
   {
     id: 'day-2',
     word: 'Spontaneous',
     ipa: '/spɑːnˈteɪ.ni.əs/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Tự phát, ngẫu hứng (không tính toán trước)',
+    vietnamese: 'Ngẫu hứng, không lên kế hoạch trước',
     category: 'daily',
     level: 'B2',
     definition: 'Performed or occurring as a result of a sudden inner impulse without premeditation.',
-    example: 'We took a spontaneous weekend road trip without booking any hotel in advance.',
-    exampleVi: 'Chúng tôi đã có một chuyến phượt ngẫu hứng cuối tuần mà không đặt trước phòng.',
+    example: 'We took a spontaneous road trip to the coast without packing any bags.',
+    exampleVi: 'Chúng tôi đã có một chuyến phượt ngẫu hứng ra biển mà chẳng cần chuẩn bị hành lý trước.',
     collocations: ['spontaneous decision', 'spontaneous reaction', 'spontaneous trip'],
-    mnemonic: 'Hứng lên là làm ngay, không cần lên lịch trước.'
+    mnemonic: 'Thích là xách balo lên và đi ngay lập tức.'
   },
   {
     id: 'day-3',
     word: 'Empathy',
     ipa: '/ˈem.pə.θi/',
     partOfSpeech: 'noun',
-    vietnamese: 'Sự thấu cảm (đặt mình vào vị trí người khác)',
+    vietnamese: 'Sự thấu cảm sâu sắc',
     category: 'daily',
     level: 'B2',
-    definition: 'The ability to understand and share the feelings of another.',
-    example: 'Deep empathy allows leaders to connect genuinely with their team members.',
-    exampleVi: 'Sự thấu cảm sâu sắc cho phép người lãnh đạo kết nối chân thành với các thành viên.',
-    collocations: ['show empathy', 'lack empathy', 'empathy and compassion'],
-    mnemonic: 'Khác với Sympathy (thương hại), Empathy là cảm nhận nỗi đau như chính mình trải qua.'
+    definition: 'The ability to understand and share the feelings and perspectives of another person.',
+    example: 'Listening with deep empathy strengthens friendships and dissolves misunderstandings.',
+    exampleVi: 'Lắng nghe với sự thấu cảm sâu sắc giúp thắt chặt tình bạn và xóa tan hiểu lầm.',
+    collocations: ['show empathy', 'develop empathy', 'empathy and compassion'],
+    mnemonic: 'Khác với Sympathy (thương hại), Empathy là đặt trọn trái tim vào nỗi đau của người khác.'
   },
   {
     id: 'day-4',
     word: 'Resilient',
     ipa: '/rɪˈzɪl.jənt/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Kiên cường, mau hồi phục sau vấp ngã',
+    vietnamese: 'Kiên cường, mau hồi phục sau thất bại',
     category: 'daily',
     level: 'B2',
-    definition: 'Able to withstand or recover quickly from difficult conditions.',
-    example: 'She remained resilient despite facing numerous personal setbacks.',
-    exampleVi: 'Cô ấy vẫn luôn kiên cường dù phải đối mặt với vô số khó khăn cá nhân.',
-    collocations: ['resilient mindset', 'highly resilient', 'resilient community'],
-    mnemonic: 'Như quả bóng cao su bị nén xuống nhưng bật dậy mạnh mẽ hơn.'
+    definition: 'Able to withstand or recover quickly from difficult conditions and emotional trauma.',
+    example: 'She remained remarkably resilient despite facing multiple rejections.',
+    exampleVi: 'Cô ấy vẫn kiên cường đáng nể dù phải đối mặt với vô số lần bị từ chối.',
+    collocations: ['resilient mindset', 'highly resilient', 'resilient spirit'],
+    mnemonic: 'Bị quật ngã bao nhiêu lần cũng bật dậy mạnh mẽ hơn.'
   },
   {
     id: 'day-5',
     word: 'Serendipity',
     ipa: '/ˌser.ənˈdɪp.ə.ti/',
     partOfSpeech: 'noun',
-    vietnamese: 'Sự may mắn tình cờ / Cơ duyên bất ngờ',
+    vietnamese: 'Cơ duyên may mắn tình cờ',
     category: 'daily',
     level: 'C1',
-    definition: 'The occurrence of finding valuable or pleasant things by chance in a happy way.',
-    example: 'Meeting my co-founder at a random coffee shop was pure serendipity.',
-    exampleVi: 'Gặp được nhà đồng sáng lập tại một quán cà phê tình cờ quả là cơ duyên tuyệt vời.',
-    collocations: ['pure serendipity', 'serendipitous encounter', 'moment of serendipity'],
-    mnemonic: 'Cơ duyên tình cờ mang đến những điều kỳ diệu bất ngờ.'
+    definition: 'The occurrence of finding valuable or delightful things by fortunate accident.',
+    example: 'Meeting my lifelong mentor at a delayed airport lounge was pure serendipity.',
+    exampleVi: 'Gặp được người thầy cuộc đời tại phòng chờ sân bay bị hoãn chuyến quả là cơ duyên kỳ diệu.',
+    collocations: ['pure serendipity', 'serendipitous moment', 'stroke of serendipity'],
+    mnemonic: 'Cơ duyên bất ngờ mang đến điều tuyệt vời nhất cuộc đời.'
   },
   {
     id: 'day-6',
     word: 'Overwhelmed',
     ipa: '/ˌoʊ.vərˈwelmd/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Bị choáng ngợp / Quá tải cảm xúc hoặc công việc',
+    vietnamese: 'Bị quá tải, choáng ngợp',
     category: 'daily',
     level: 'B1',
-    definition: 'Completely overcome by superior force, numbers, or emotional stress.',
-    example: 'I felt overwhelmed by the mountain of emails after returning from vacation.',
-    exampleVi: 'Tôi cảm thấy quá tải trước núi email sau khi trở về từ kỳ nghỉ.',
-    collocations: ['feel overwhelmed', 'overwhelmed with work', 'overwhelmed with emotions'],
-    mnemonic: 'Khi mọi thứ đổ dồn vào cùng một lúc khiến đầu óc nghẹt thở.'
+    definition: 'Completely overcome by superior force, numbers, or heavy emotional stress.',
+    example: 'Working 70 hours a week left him completely overwhelmed and exhausted.',
+    exampleVi: 'Làm việc 70 tiếng một tuần khiến anh ấy hoàn toàn quá tải và kiệt sức.',
+    collocations: ['feel overwhelmed', 'overwhelmed with work', 'emotionally overwhelmed'],
+    mnemonic: 'Sóng công việc đổ ập vào đầu khiến não nghẹt thở.'
   },
   {
     id: 'day-7',
     word: 'Nostalgia',
     ipa: '/nɑːˈstæl.dʒə/',
     partOfSpeech: 'noun',
-    vietnamese: 'Nỗi hoài niệm / Ký ức tuổi thơ da diết',
+    vietnamese: 'Nỗi hoài niệm da diết về quá khứ',
     category: 'daily',
     level: 'B2',
-    definition: 'A sentimental longing or wistful affection for the past.',
-    example: 'Hearing that 90s soundtrack filled him with a wave of sweet nostalgia.',
-    exampleVi: 'Nghe lại giai điệu thập niên 90 khiến anh ấy tràn ngập nỗi hoài niệm ngọt ngào.',
+    definition: 'A sentimental longing or wistful affection for a period in the past.',
+    example: 'Looking at childhood photographs filled her with warm nostalgia.',
+    exampleVi: 'Ngắm nhìn những bức ảnh thời thơ ấu khiến cô ngập tràn nỗi hoài niệm ấm áp.',
     collocations: ['wave of nostalgia', 'feeling of nostalgia', 'childhood nostalgia'],
-    mnemonic: 'Cảm giác bồi hồi, ấm áp khi nhớ về những kỷ niệm xưa cũ.'
+    mnemonic: 'Cảm giác bồi hồi khi nghe lại bản nhạc xưa cũ.'
   },
   {
     id: 'day-8',
@@ -551,56 +719,84 @@ export const VOCAB_LIST = [
     category: 'daily',
     level: 'B1',
     definition: 'Free from pretense or deceit; proceeding from genuine feelings.',
-    example: 'He offered a sincere apology for his late arrival.',
-    exampleVi: 'Anh ấy đã đưa ra lời xin lỗi chân thành vì việc đến muộn.',
+    example: 'He offered a heartfelt and sincere apology for his thoughtless remarks.',
+    exampleVi: 'Anh ấy đã đưa ra lời xin lỗi chân thành từ đáy lòng vì những phát ngôn thiếu suy nghĩ.',
     collocations: ['sincere apology', 'sincere gratitude', 'sincere desire'],
-    mnemonic: 'Chân thật, không giả dối hay tính toán.'
+    mnemonic: 'Lời nói thật tâm, không dối trá hay vụ lợi.'
+  },
+  {
+    id: 'day-9',
+    word: 'Boundary',
+    ipa: '/ˈbaʊn.dər.i/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Ranh giới cá nhân (trong giao tiếp)',
+    category: 'daily',
+    level: 'B2',
+    definition: 'A line that marks the limits of an area; a psychological limit on acceptable behavior.',
+    example: 'Setting healthy personal boundaries is essential for emotional well-being.',
+    exampleVi: 'Thiết lập ranh giới cá nhân lành mạnh là điều thiết yếu cho sức khỏe tinh thần.',
+    collocations: ['set boundaries', 'personal boundaries', 'respect boundaries'],
+    mnemonic: 'Biết nói "Không" để bảo vệ thời gian và không gian riêng của bản thân.'
+  },
+  {
+    id: 'day-10',
+    word: 'Gratitude',
+    ipa: '/ˈɡræt̬.ə.tuːd/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Lòng biết ơn sâu sắc',
+    category: 'daily',
+    level: 'B1',
+    definition: 'The quality of being thankful; readiness to show appreciation and return kindness.',
+    example: 'Practicing daily gratitude journaling significantly reduces stress and anxiety.',
+    exampleVi: 'Thực hành viết nhật ký biết ơn mỗi ngày giúp giảm đáng kể căng thẳng và lo âu.',
+    collocations: ['express gratitude', 'feel deep gratitude', 'attitude of gratitude'],
+    mnemonic: 'Trân trọng những điều tốt đẹp mình đang có trong cuộc sống.'
   },
 
-  // ==========================================
-  // --- 🎓 HỌC THUẬT & IELTS 7.0+ (ACADEMIC) ---
-  // ==========================================
+  // =========================================================================
+  // --- 🎓 HỌC THUẬT & IELTS 7.0+ (ACADEMIC & ESSAYS) ---
+  // =========================================================================
   {
     id: 'acad-1',
     word: 'Discrepancy',
     ipa: '/dɪˈskrep.ən.si/',
     partOfSpeech: 'noun',
-    vietnamese: 'Sự sai lệch, bất nhất (giữa 2 nguồn dữ liệu)',
+    vietnamese: 'Sự sai lệch, bất nhất giữa 2 nguồn dữ liệu',
     category: 'academic',
     level: 'C1',
-    definition: 'A lack of compatibility or similarity between two or more facts.',
+    definition: 'A lack of compatibility or similarity between two or more facts or numbers.',
     example: 'The auditor found a major discrepancy between the bank statements and ledger.',
     exampleVi: 'Kiểm toán viên đã phát hiện một sự sai lệch lớn giữa sao kê ngân hàng và sổ cái.',
     collocations: ['significant discrepancy', 'unexplained discrepancy', 'discrepancy in data'],
-    mnemonic: 'Hai con số hoặc hai bản báo cáo không khớp nhau.'
+    mnemonic: 'Hai con số đối chiếu nhau không khớp.'
   },
   {
     id: 'acad-2',
     word: 'Ubiquitous',
     ipa: '/juːˈbɪk.wə.təs/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Phổ biến khắp nơi / Hiện diện ở mọi chốn',
+    vietnamese: 'Hiện diện ở khắp mọi nơi, phổ biến rộng khắp',
     category: 'academic',
     level: 'C1',
-    definition: 'Present, appearing, or found everywhere.',
-    example: 'Smartphones have become ubiquitous in modern human society.',
-    exampleVi: 'Điện thoại thông minh đã trở nên hiện diện ở khắp mọi nơi trong xã hội hiện đại.',
+    definition: 'Present, appearing, or found everywhere at the same time.',
+    example: 'Smartphones and mobile internet have become ubiquitous across all demographics.',
+    exampleVi: 'Điện thoại thông minh và internet di động đã trở nên hiện diện ở khắp mọi nơi trong mọi tầng lớp.',
     collocations: ['ubiquitous presence', 'become ubiquitous', 'ubiquitous technology'],
-    mnemonic: 'Từ ăn điểm khủng trong Writing Task 2 thay thế cho "common" hay "everywhere".'
+    mnemonic: 'Từ C1 cực đắt giá thay thế cho "common" hay "everywhere" trong IELTS Writing.'
   },
   {
     id: 'acad-3',
     word: 'Empirical',
     ipa: '/ɪmˈpɪr.ɪ.kəl/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Mang tính thực chứng / Dựa trên dữ liệu quan sát',
+    vietnamese: 'Dựa trên thực nghiệm, số liệu quan sát thực tế',
     category: 'academic',
     level: 'C1',
-    definition: 'Based on, concerned with, or verifiable by observation or experience rather than theory.',
-    example: 'The scientist provided solid empirical evidence to prove the hypothesis.',
-    exampleVi: 'Nhà khoa học đã cung cấp bằng chứng thực nghiệm vững chắc để chứng minh giả thuyết.',
+    definition: 'Based on, concerned with, or verifiable by observation or experiment rather than theory.',
+    example: 'The thesis provides solid empirical evidence supporting the educational reform.',
+    exampleVi: 'Luận án cung cấp bằng chứng thực nghiệm vững chắc ủng hộ cuộc cải cách giáo dục.',
     collocations: ['empirical evidence', 'empirical study', 'empirical data'],
-    mnemonic: 'Dựa trên thí nghiệm và số liệu thực tế chứ không chỉ nói lý thuyết suông.'
+    mnemonic: 'Dựa vào thí nghiệm và đo lường thực tế chứ không suy đoán lý thuyết.'
   },
   {
     id: 'acad-4',
@@ -610,11 +806,11 @@ export const VOCAB_LIST = [
     vietnamese: 'Hệ hình, mô hình mẫu chuẩn mực',
     category: 'academic',
     level: 'C1',
-    definition: 'A typical example or pattern of something; a model or framework.',
-    example: 'The discovery of penicillin caused a complete paradigm shift in medical science.',
-    exampleVi: 'Việc phát hiện ra penicillin đã tạo nên một bước chuyển dịch hệ hình trong y học.',
+    definition: 'A typical example, pattern, or overarching theoretical framework.',
+    example: 'Quantum computing represents a massive paradigm shift in computational science.',
+    exampleVi: 'Điện toán lượng tử đại diện cho một bước chuyển đổi hệ hình lớn trong khoa học tính toán.',
     collocations: ['paradigm shift', 'dominant paradigm', 'new paradigm'],
-    mnemonic: 'Mô hình tư duy nền tảng định hình cách nhìn nhận cả một lĩnh vực.'
+    mnemonic: 'Mô hình tư duy nền tảng thay đổi cách nhìn nhận cả thế giới.'
   },
   {
     id: 'acad-5',
@@ -624,168 +820,224 @@ export const VOCAB_LIST = [
     vietnamese: 'Chứng minh bằng chứng cứ xác thực',
     category: 'academic',
     level: 'C1',
-    definition: 'Provide evidence to support or prove the truth of something.',
-    example: 'The author failed to substantiate his bold claims with reliable sources.',
-    exampleVi: 'Tác giả đã không thể đưa ra bằng chứng xác thực cho những tuyên bố mạnh mẽ của mình.',
+    definition: 'Provide evidence to support or prove the truth of an assertion.',
+    example: 'Researchers must substantiate their controversial claims with peer-reviewed data.',
+    exampleVi: 'Các nhà nghiên cứu phải chứng minh những tuyên bố gây tranh cãi của mình bằng dữ liệu được thẩm định.',
     collocations: ['substantiate a claim', 'substantiate allegations', 'fully substantiate'],
-    mnemonic: 'Substance (bản chất/vật chất thật) -> Đưa ra dẫn chứng cụ thể để củng cố luận điểm.'
+    mnemonic: 'Đưa ra dẫn chứng thực tế thuyết phục để củng cố luận điểm.'
   },
   {
     id: 'acad-6',
     word: 'Proliferation',
     ipa: '/prəˌlɪf.əˈreɪ.ʃən/',
     partOfSpeech: 'noun',
-    vietnamese: 'Sự sinh sôi nảy nở nhanh chóng / Bùng nổ số lượng',
+    vietnamese: 'Sự bùng nổ gia tăng số lượng nhanh chóng',
     category: 'academic',
     level: 'C1',
-    definition: 'Rapid increase in the appearance or growth of something.',
-    example: 'The proliferation of social media platforms has transformed human communication.',
-    exampleVi: 'Sự bùng nổ của các nền tảng mạng xã hội đã biến đổi cách thức giao tiếp của loài người.',
-    collocations: ['rapid proliferation', 'proliferation of technology', 'nuclear proliferation'],
-    mnemonic: 'Số lượng tăng trưởng chóng mặt như tế bào nhân đôi.'
+    definition: 'Rapid increase in the appearance or growth of numbers or entities.',
+    example: 'The rapid proliferation of generative AI tools is reshaping higher education.',
+    exampleVi: 'Sự bùng nổ nhanh chóng của các công cụ AI tạo sinh đang tái định hình giáo dục đại học.',
+    collocations: ['rapid proliferation', 'proliferation of technology', 'proliferation of devices'],
+    mnemonic: 'Sinh sôi nảy nở theo cấp số nhân.'
   },
   {
     id: 'acad-7',
     word: 'Exacerbate',
     ipa: '/ɪɡˈzæs.ər.beɪt/',
     partOfSpeech: 'verb',
-    vietnamese: 'Làm trầm trọng thêm (vấn đề, căn bệnh, mâu thuẫn)',
+    vietnamese: 'Làm trầm trọng thêm vấn đề / căn bệnh',
     category: 'academic',
     level: 'C1',
-    definition: 'Make a problem, bad situation, or negative feeling worse.',
-    example: 'Climate change continues to exacerbate existing global water shortages.',
-    exampleVi: 'Biến đổi khí hậu tiếp tục làm trầm trọng thêm tình trạng thiếu nước hiện nay trên toàn cầu.',
-    collocations: ['exacerbate the problem', 'exacerbate symptoms', 'exacerbate tensions'],
-    mnemonic: 'Đổ thêm dầu vào lửa, biến chuyện xấu thành cực xấu.'
+    definition: 'Make a problem, bad situation, or negative condition worse.',
+    example: 'Urban congestion continues to exacerbate air pollution and respiratory illness in megacities.',
+    exampleVi: 'Tắc nghẽn đô thị tiếp tục làm trầm trọng thêm ô nhiễm không khí và bệnh hô hấp ở các siêu đô thị.',
+    collocations: ['exacerbate the problem', 'exacerbate symptoms', 'exacerbate inequality'],
+    mnemonic: 'Đổ thêm dầu vào lửa, biến tình hình xấu thành tồi tệ hơn.'
   },
   {
     id: 'acad-8',
     word: 'Alleviate',
     ipa: '/əˈliː.vi.eɪt/',
     partOfSpeech: 'verb',
-    vietnamese: 'Làm dịu bớt / Giảm nhẹ (nỗi đau, áp lực, gánh nặng)',
+    vietnamese: 'Làm dịu bớt, giảm nhẹ gánh nặng / nỗi đau',
     category: 'academic',
     level: 'B2',
-    definition: 'Make suffering, deficiency, or a problem less severe.',
-    example: 'The government introduced new subsidies to alleviate poverty in rural areas.',
-    exampleVi: 'Chính phủ đã đưa ra các khoản trợ cấp mới nhằm giảm bớt nạn đói nghèo ở vùng nông thôn.',
-    collocations: ['alleviate poverty', 'alleviate pain', 'alleviate stress'],
-    mnemonic: 'Xoa dịu, tháo gỡ bớt gánh nặng trên vai.'
+    definition: 'Make suffering, poverty, or a crisis less severe.',
+    example: 'Renewable energy investments help alleviate the looming environmental crisis.',
+    exampleVi: 'Đầu tư vào năng lượng tái tạo giúp giảm bớt cuộc khủng hoảng môi trường đang cận kề.',
+    collocations: ['alleviate poverty', 'alleviate pain', 'alleviate traffic congestion'],
+    mnemonic: 'Xoa dịu, tháo gỡ bớt gánh nặng trên vai người khác.'
+  },
+  {
+    id: 'acad-9',
+    word: 'Juxtaposition',
+    ipa: '/ˌdʒʌk.stə.pəˈzɪʃ.ən/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Sự đặt cạnh nhau để làm nổi bật tương phản',
+    category: 'academic',
+    level: 'C2',
+    definition: 'The fact of two things being seen or placed close together with contrasting effect.',
+    example: 'The essay analyzes the dramatic juxtaposition of extreme wealth and poverty in urban centers.',
+    exampleVi: 'Bài luận phân tích sự đặt cạnh nhau đầy kịch tính giữa sự giàu sang tột đỉnh và nghèo khó ở đô thị.',
+    collocations: ['stark juxtaposition', 'artistic juxtaposition', 'interesting juxtaposition'],
+    mnemonic: 'Đặt 2 bức tranh sáng và tối cạnh nhau để làm nổi bật sự đối lập.'
+  },
+  {
+    id: 'acad-10',
+    word: 'Plausible',
+    ipa: '/ˈplɑː.zə.bəl/',
+    partOfSpeech: 'adjective',
+    vietnamese: 'Hợp lý, đáng tin cậy',
+    category: 'academic',
+    level: 'B2',
+    definition: 'Seeming reasonable or probable; likely to be true.',
+    example: 'Scientists proposed a plausible explanation for the sudden atmospheric anomaly.',
+    exampleVi: 'Các nhà khoa học đã đưa ra một lời giải thích hợp lý cho hiện tượng dị thường trong khí quyển.',
+    collocations: ['plausible explanation', 'plausible hypothesis', 'highly plausible'],
+    mnemonic: 'Nghe rất có lý, có căn cứ thuyết phục.'
   },
 
-  // ==========================================
-  // --- 🏥 Y TẾ & SỨC KHỎE (HEALTHCARE) ---
-  // ==========================================
+  // =========================================================================
+  // --- 🏥 Y TẾ & SỨC KHỎE (HEALTHCARE & MEDICINE) ---
+  // =========================================================================
   {
     id: 'heal-1',
     word: 'Cardiovascular',
     ipa: '/ˌkɑːr.di.oʊˈvæs.kjə.lər/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Thuộc về tim mạch (tim và mạch máu)',
+    vietnamese: 'Thuộc về tim và hệ mạch máu',
     category: 'health',
     level: 'B2',
     definition: 'Relating to the heart and blood vessels.',
-    example: 'Regular aerobic exercise significantly improves cardiovascular fitness.',
-    exampleVi: 'Tập thể dục nhịp điệu đều đặn giúp cải thiện đáng kể sức khỏe tim mạch.',
+    example: 'Regular aerobic exercise significantly strengthens cardiovascular endurance.',
+    exampleVi: 'Tập thể dục nhịp điệu đều đặn giúp tăng cường đáng kể sức bền tim mạch.',
     collocations: ['cardiovascular disease', 'cardiovascular health', 'cardiovascular system'],
-    mnemonic: 'Cardio (tim) + Vascular (mạch máu) -> Hệ tuần hoàn tim mạch.'
+    mnemonic: 'Cardio (tim) + Vascular (mạch máu) -> Hệ tuần hoàn.'
   },
   {
     id: 'heal-2',
     word: 'Rehabilitation',
     ipa: '/ˌriː.həˌbɪl.əˈteɪ.ʃən/',
     partOfSpeech: 'noun',
-    vietnamese: 'Phục hồi chức năng (sau chấn thương / bệnh)',
+    vietnamese: 'Phục hồi chức năng sau chấn thương',
     category: 'health',
     level: 'B2',
-    definition: 'The action of restoring someone to health or normal life through training and therapy.',
-    example: 'After the knee surgery, he underwent six months of intensive physical rehabilitation.',
-    exampleVi: 'Sau ca phẫu thuật đầu gối, anh ấy đã trải qua sáu tháng phục hồi chức năng thể chất chuyên sâu.',
-    collocations: ['physical rehabilitation', 'rehabilitation center', 'rehabilitation program'],
-    mnemonic: 'Rehab -> Quá trình tập luyện trị liệu để cơ thể hoạt động bình thường trở lại.'
+    definition: 'The action of restoring someone to health or normal movement through therapy.',
+    example: 'Following knee surgery, the athlete completed six months of physical rehabilitation.',
+    exampleVi: 'Sau ca phẫu thuật đầu gối, vận động viên đã hoàn thành 6 tháng tập phục hồi chức năng.',
+    collocations: ['physical rehabilitation', 'rehabilitation center', 'rehab program'],
+    mnemonic: 'Quá trình tập vật lý trị liệu để đi đứng bình thường trở lại.'
   },
   {
     id: 'heal-3',
     word: 'Sedentary',
     ipa: '/ˈsed.ən.ter.i/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Ít vận động / Ngồi nhiều một chỗ',
+    vietnamese: 'Ít vận động, ngồi lì một chỗ',
     category: 'health',
     level: 'B2',
-    definition: 'Tending to spend much time seated; somewhat inactive.',
-    example: 'A sedentary lifestyle is a leading risk factor for chronic health disorders.',
-    exampleVi: 'Lối sống ít vận động là yếu tố nguy cơ hàng đầu dẫn đến các rối loạn sức khỏe mãn tính.',
+    definition: 'Tending to spend much time seated; physically inactive.',
+    example: 'A sedentary lifestyle is a leading contributor to obesity and cardiovascular issues.',
+    exampleVi: 'Lối sống ít vận động là nguyên nhân hàng đầu dẫn đến béo phì và các vấn đề tim mạch.',
     collocations: ['sedentary lifestyle', 'sedentary job', 'sedentary behavior'],
-    mnemonic: 'Ngồi ghế dính chặt một chỗ suốt 8-10 tiếng mỗi ngày không chịu tập thể dục.'
+    mnemonic: 'Ngồi dính vào ghế suốt 8 tiếng mỗi ngày không chịu tập thể dục.'
   },
   {
     id: 'heal-4',
     word: 'Prescription',
     ipa: '/prɪˈskrɪp.ʃən/',
     partOfSpeech: 'noun',
-    vietnamese: 'Đơn thuốc / Toa thuốc bác sĩ kê',
+    vietnamese: 'Đơn thuốc, toa thuốc do bác sĩ kê',
     category: 'health',
     level: 'B1',
-    definition: 'An instruction written by a medical practitioner that authorizes a patient to be provided a medicine.',
-    example: 'Antibiotics cannot be purchased over the counter without a valid doctor prescription.',
-    exampleVi: 'Thuốc kháng sinh không thể mua tự do nếu không có đơn thuốc hợp lệ của bác sĩ.',
+    definition: 'An instruction written by a medical practitioner that authorizes a patient to be provided medicine.',
+    example: 'Antibiotics cannot be dispensed legally without a valid doctor prescription.',
+    exampleVi: 'Thuốc kháng sinh không thể được cấp phát hợp pháp nếu thiếu đơn thuốc của bác sĩ.',
     collocations: ['doctor prescription', 'prescription medication', 'fill a prescription'],
-    mnemonic: 'Đơn thuốc có chữ ký bác sĩ chỉ định loại thuốc và liều dùng.'
+    mnemonic: 'Toa thuốc ghi rõ loại thuốc và liều lượng uống mỗi ngày.'
   },
   {
     id: 'heal-5',
     word: 'Metabolism',
     ipa: '/məˈtæb.əl.ɪ.zəm/',
     partOfSpeech: 'noun',
-    vietnamese: 'Quá trình trao đổi chất (đốt năng lượng trong cơ thể)',
+    vietnamese: 'Quá trình trao đổi chất và đốt calo',
     category: 'health',
     level: 'B2',
-    definition: 'The chemical processes that occur within a living organism in order to maintain life.',
-    example: 'Strength training boosts your resting metabolism, burning more calories throughout the day.',
-    exampleVi: 'Tập tạ giúp tăng cường tốc độ trao đổi chất lúc nghỉ ngơi, đốt cháy nhiều calo hơn suốt cả ngày.',
-    collocations: ['fast metabolism', 'boost metabolism', 'basal metabolism'],
-    mnemonic: 'Cỗ máy sinh học chuyển thức ăn thành năng lượng hoạt động cho cơ thể.'
+    definition: 'The chemical processes occurring within a living organism in order to maintain life and burn calories.',
+    example: 'High-intensity interval training elevates your resting metabolism for hours after workout.',
+    exampleVi: 'Tập luyện cường độ cao ngắt quãng giúp tăng tốc độ trao đổi chất nghỉ ngơi suốt nhiều giờ sau buổi tập.',
+    collocations: ['fast metabolism', 'boost metabolism', 'basal metabolic rate'],
+    mnemonic: 'Bộ máy đốt cháy năng lượng của cơ thể.'
   },
   {
     id: 'heal-6',
     word: 'Preventive',
     ipa: '/prɪˈven.tɪv/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Mang tính phòng ngừa / Ngăn chặn trước',
+    vietnamese: 'Mang tính phòng ngừa trước khi phát bệnh',
     category: 'health',
     level: 'B2',
-    definition: 'Designed to keep something undesirable such as illness or accidents from occurring.',
-    example: 'Annual health checkups are an essential part of preventive medicine.',
-    exampleVi: 'Khám sức khỏe định kỳ hàng năm là phần thiết yếu của y học dự phòng.',
+    definition: 'Designed to keep illness or health complications from occurring in advance.',
+    example: 'Routine health screenings are a cornerstone of modern preventive medicine.',
+    exampleVi: 'Tầm soát sức khỏe định kỳ là nền tảng của y học dự phòng hiện đại.',
     collocations: ['preventive medicine', 'preventive measures', 'preventive healthcare'],
-    mnemonic: 'Phòng bệnh hơn chữa bệnh (Prevention is better than cure).'
+    mnemonic: 'Phòng bệnh hơn chữa bệnh.'
   },
   {
     id: 'heal-7',
     word: 'Immunity',
     ipa: '/ɪˈmjuː.nə.ti/',
     partOfSpeech: 'noun',
-    vietnamese: 'Khả năng miễn dịch / Sức đề kháng',
+    vietnamese: 'Hệ miễn dịch, sức đề kháng',
     category: 'health',
     level: 'B2',
-    definition: 'The ability of an organism to resist a particular infection or toxin by the action of specific antibodies.',
-    example: 'Vaccination helps the human body build long-lasting immunity against lethal viruses.',
-    exampleVi: 'Tiêm chủng giúp cơ thể con người xây dựng khả năng miễn dịch lâu dài chống lại các loại virus nguy hiểm.',
-    collocations: ['herd immunity', 'boost immunity', 'natural immunity'],
-    mnemonic: 'Lá chắn phòng thủ tự nhiên của cơ thể chống lại vi khuẩn và virus.'
+    definition: 'The ability of an organism to resist infection by producing specialized antibodies.',
+    example: 'A nutrient-rich diet and adequate sleep naturally strengthen your immune system.',
+    exampleVi: 'Chế độ ăn giàu dinh dưỡng và ngủ đủ giấc giúp tăng cường hệ miễn dịch tự nhiên.',
+    collocations: ['boost immunity', 'herd immunity', 'natural immunity'],
+    mnemonic: 'Lá chắn phòng thủ sinh học chống lại virus và vi khuẩn.'
   },
   {
     id: 'heal-8',
     word: 'Therapeutic',
     ipa: '/ˌθer.əˈpjuː.tɪk/',
     partOfSpeech: 'adjective',
-    vietnamese: 'Có tính trị liệu / Chữa lành sức khỏe',
+    vietnamese: 'Có tác dụng trị liệu và chữa lành',
     category: 'health',
     level: 'B2',
-    definition: 'Relating to the healing of disease; having a good effect on body or mind.',
-    example: 'Listening to ocean waves has a remarkably therapeutic effect on anxiety.',
-    exampleVi: 'Lắng nghe tiếng sóng biển có tác dụng trị liệu và xoa dịu lo âu một cách kỳ diệu.',
-    collocations: ['therapeutic effect', 'therapeutic massage', 'therapeutic benefit'],
-    mnemonic: 'Liệu pháp giúp chữa lành cả thể chất lẫn tinh thần.'
+    definition: 'Relating to the healing of disease; having a beneficial effect on mind and body.',
+    example: 'Swimming has proved to be exceptionally therapeutic for chronic back pain relief.',
+    exampleVi: 'Bơi lội đã được chứng minh là có tác dụng trị liệu tuyệt vời giúp giảm đau lưng mãn tính.',
+    collocations: ['therapeutic effect', 'therapeutic massage', 'therapeutic value'],
+    mnemonic: 'Liệu pháp xoa dịu và phục hồi cả thể xác lẫn tâm trí.'
   },
+  {
+    id: 'heal-9',
+    word: 'Hygiene',
+    ipa: '/ˈhaɪ.dʒiːn/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Vệ sinh phòng dịch và sức khỏe',
+    category: 'health',
+    level: 'B1',
+    definition: 'Conditions or practices conducive to maintaining health and preventing disease.',
+    example: 'Proper hand hygiene is the simplest and most effective defense against seasonal flu.',
+    exampleVi: 'Vệ sinh tay đúng cách là biện pháp phòng vệ đơn giản và hiệu quả nhất chống lại cúm mùa.',
+    collocations: ['personal hygiene', 'dental hygiene', 'hygiene standards'],
+    mnemonic: 'Giữ gìn vệ sinh sạch sẽ để vi khuẩn không xâm nhập.'
+  },
+  {
+    id: 'heal-10',
+    word: 'Diagnosis',
+    ipa: '/ˌdaɪ.əɡˈnoʊ.sɪs/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Sự chẩn đoán bệnh chính xác',
+    category: 'health',
+    level: 'B2',
+    definition: 'The identification of the nature of an illness by examination of symptoms and tests.',
+    example: 'Early cancer diagnosis dramatically increases patient survival rates.',
+    exampleVi: 'Chẩn đoán ung thư sớm giúp tăng vọt tỷ lệ sống sót của bệnh nhân.',
+    collocations: ['early diagnosis', 'medical diagnosis', 'confirm a diagnosis'],
+    mnemonic: 'Bác sĩ khám và kết luận chính xác bệnh gì.'
+  }
 ];
