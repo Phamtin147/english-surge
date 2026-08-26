@@ -8,8 +8,8 @@ export default function BlinkingSquares({
   fadeStart = 0.15,
   fadeEnd = 0.95,
   falloff = 1.15,
-  minBrightness = 0.05,
-  twinkleSpeed = 0.75, // Smooth slow breathing speed
+  minBrightness = 0.04,
+  twinkleSpeed = 0.6, // Silky slow breathing frequency
   twinkleStrength = 0.88,
   mouseRadius = 140,
   className = '',
@@ -59,7 +59,7 @@ export default function BlinkingSquares({
           const x = c * gridSize;
           const y = r * gridSize;
 
-          // Calculate directional base density
+          // Directional base density
           let norm = 0;
           if (direction === 'right') {
             norm = x / width;
@@ -85,8 +85,9 @@ export default function BlinkingSquares({
               y: y + (gridSize - actualSquareSize) / 2,
               size: actualSquareSize,
               phase: Math.random() * Math.PI * 2,
-              speed: (0.4 + Math.random() * 0.6) * twinkleSpeed,
+              speed: (0.35 + Math.random() * 0.5) * twinkleSpeed,
               baseAlpha: densityFactor,
+              currentAlpha: minBrightness, // Smoothed alpha accumulator
             });
           }
         }
@@ -102,33 +103,38 @@ export default function BlinkingSquares({
       const width = window.innerWidth;
       const height = window.innerHeight;
 
-      // Smooth mouse interpolation
-      mouse.x += (mouse.targetX - mouse.x) * 0.1;
-      mouse.y += (mouse.targetY - mouse.y) * 0.1;
+      // Smooth mouse coordinate easing
+      mouse.x += (mouse.targetX - mouse.x) * 0.08;
+      mouse.y += (mouse.targetY - mouse.y) * 0.08;
 
       ctx.clearRect(0, 0, width, height);
 
       for (let i = 0; i < squares.length; i++) {
         const sq = squares[i];
 
-        // Smooth sinusoidal breathing twinkle (slower & velvety)
-        const sineVal = Math.sin(elapsed * sq.speed * 1.3 + sq.phase);
-        const twinkle = (sineVal + 1.0) * 0.5;
+        // 1. Smoothstep (Cubic Hermite: 3t^2 - 2t^3) for ultra-soft sinusoidal ease-in/ease-out
+        const t = (Math.sin(elapsed * sq.speed * 1.2 + sq.phase) + 1.0) * 0.5;
+        const smoothTwinkle = t * t * (3.0 - 2.0 * t); // perfect continuous acceleration/deceleration
 
-        let alpha = minBrightness + twinkle * twinkleStrength * sq.baseAlpha;
+        let targetAlpha = minBrightness + smoothTwinkle * twinkleStrength * sq.baseAlpha;
 
-        // Mouse proximity boost
+        // 2. Smooth Gaussian Mouse Proximity
         const dx = mouse.x - (sq.x + sq.size / 2);
         const dy = mouse.y - (sq.y + sq.size / 2);
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        const distSq = dx * dx + dy * dy;
+        const radiusSq = mouseRadius * mouseRadius;
 
-        if (dist < mouseRadius) {
-          const mouseFactor = 1 - dist / mouseRadius;
-          alpha = Math.min(1.0, alpha + mouseFactor * 0.65);
+        if (distSq < radiusSq) {
+          const mouseFactor = Math.exp(-distSq / (radiusSq * 0.45));
+          targetAlpha = Math.min(1.0, targetAlpha + mouseFactor * 0.7);
         }
 
-        if (alpha > 0.02) {
-          ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+        // 3. Exponential LERP smoothing for silky gradual transitions
+        sq.currentAlpha += (targetAlpha - sq.currentAlpha) * 0.07;
+        const finalAlpha = sq.currentAlpha;
+
+        if (finalAlpha > 0.015) {
+          ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${finalAlpha})`;
 
           // Draw micro rounded square
           const radius = Math.min(1.5, sq.size * 0.25);
@@ -136,9 +142,10 @@ export default function BlinkingSquares({
           ctx.roundRect(sq.x, sq.y, sq.size, sq.size, radius);
           ctx.fill();
 
-          if (alpha > 0.65) {
-            ctx.shadowColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha * 0.6})`;
-            ctx.shadowBlur = 4;
+          // Soft neon aura on peak glow
+          if (finalAlpha > 0.6) {
+            ctx.shadowColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${finalAlpha * 0.5})`;
+            ctx.shadowBlur = 5;
             ctx.fill();
             ctx.shadowBlur = 0;
           }
