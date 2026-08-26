@@ -3,14 +3,13 @@ import React, { useRef, useEffect } from 'react';
 export default function BlinkingSquares({
   gridSize = 12,
   squareSizeRatio = 0.38,
-  color = '#c084fc', // Neon Purple / Violet
-  secondaryColor = '#818cf8', // Indigo
+  color = '#a855f7', // Pure Uniform Neon Purple
   direction = 'right', // 'right', 'left', 'top', 'bottom', 'radial', 'diagonal'
   fadeStart = 0.15,
   fadeEnd = 0.95,
   falloff = 1.15,
   minBrightness = 0.05,
-  twinkleSpeed = 0.75, // Slower, relaxed and smooth
+  twinkleSpeed = 0.75, // Smooth slow breathing speed
   twinkleStrength = 0.88,
   mouseRadius = 140,
   className = '',
@@ -37,8 +36,7 @@ export default function BlinkingSquares({
       };
     };
 
-    const rgb1 = parseColor(color);
-    const rgb2 = parseColor(secondaryColor);
+    const rgb = parseColor(color);
 
     const initGrid = () => {
       const width = window.innerWidth;
@@ -89,7 +87,6 @@ export default function BlinkingSquares({
               phase: Math.random() * Math.PI * 2,
               speed: (0.4 + Math.random() * 0.6) * twinkleSpeed,
               baseAlpha: densityFactor,
-              isSecondary: Math.random() > 0.72,
             });
           }
         }
@@ -131,7 +128,6 @@ export default function BlinkingSquares({
         }
 
         if (alpha > 0.02) {
-          const rgb = sq.isSecondary ? rgb2 : rgb1;
           ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
 
           // Draw micro rounded square
@@ -178,7 +174,7 @@ export default function BlinkingSquares({
       window.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('resize', handleResize);
     };
-  }, [gridSize, squareSizeRatio, color, secondaryColor, direction, fadeStart, fadeEnd, falloff, minBrightness, twinkleSpeed, twinkleStrength, mouseRadius]);
+  }, [gridSize, squareSizeRatio, color, direction, fadeStart, fadeEnd, falloff, minBrightness, twinkleSpeed, twinkleStrength, mouseRadius]);
 
   return (
     <canvas
