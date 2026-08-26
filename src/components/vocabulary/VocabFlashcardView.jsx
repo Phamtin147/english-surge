@@ -156,8 +156,8 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
           className="w-full h-full relative transform-style-preserve-3d"
         >
           {/* FRONT SIDE WITH SHADER BACKGROUND */}
-          <div className="absolute inset-0 backface-hidden rounded-3xl p-8 border border-indigo-500/40 shadow-2xl shadow-indigo-950/50 flex flex-col justify-between overflow-hidden">
-            {/* Dynamic WebGL Shader Waves */}
+          <div className="absolute inset-0 backface-hidden rounded-3xl p-8 bg-slate-950 border border-indigo-500/30 shadow-2xl shadow-indigo-950/60 flex flex-col justify-between overflow-hidden">
+            {/* Dynamic WebGL Rising Flame Shader */}
             <ShaderBackground color1={palette.color1} color2={palette.color2} color3={palette.color3} speed={0.9} />
 
             <div className="flex items-center justify-between z-10">
@@ -191,8 +191,8 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
           </div>
 
           {/* BACK SIDE WITH SHADER BACKGROUND */}
-          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl p-8 border border-indigo-500/40 shadow-2xl shadow-indigo-950/50 flex flex-col justify-between overflow-hidden">
-            {/* Dynamic WebGL Shader Waves */}
+          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl p-8 bg-slate-950 border border-indigo-500/30 shadow-2xl shadow-indigo-950/60 flex flex-col justify-between overflow-hidden">
+            {/* Dynamic WebGL Rising Flame Shader */}
             <ShaderBackground color1={palette.color1} color2={palette.color2} color3={palette.color3} speed={0.9} />
 
             {/* Top header */}
