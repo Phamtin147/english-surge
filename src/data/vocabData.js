@@ -1,12 +1,12 @@
 export const VOCAB_CATEGORIES = [
   { id: 'all', name: 'Tuyển chọn cốt lõi', icon: 'Sparkles', color: 'indigo', badge: '100+ từ' },
   { id: 'dict', name: '📖 Toàn bộ 103K Từ Điển A-Z', icon: 'BookOpen', color: 'emerald', badge: '103.376 Từ' },
-  { id: 'it', name: 'Công nghệ & CNTT', icon: 'Code', color: 'cyan', badge: '922 Từ' },
-  { id: 'business', name: 'Kinh doanh & Công sở', icon: 'Briefcase', color: 'emerald', badge: '1.311 Từ' },
-  { id: 'travel', name: 'Du lịch & Khách sạn', icon: 'Plane', color: 'amber', badge: '1.026 Từ' },
-  { id: 'daily', name: 'Đời sống & Giao tiếp', icon: 'Coffee', color: 'rose', badge: '2.267 Từ' },
-  { id: 'academic', name: 'Học thuật & IELTS', icon: 'GraduationCap', color: 'violet', badge: '3.374 Từ' },
-  { id: 'health', name: 'Y tế & Sức khỏe', icon: 'HeartPulse', color: 'teal', badge: '5.159 Từ' },
+  { id: 'it', name: 'Công nghệ & CNTT', icon: 'Code', color: 'cyan', badge: '390 Từ' },
+  { id: 'business', name: 'Kinh doanh & Công sở', icon: 'Briefcase', color: 'emerald', badge: '276 Từ' },
+  { id: 'travel', name: 'Du lịch & Khách sạn', icon: 'Plane', color: 'amber', badge: '716 Từ' },
+  { id: 'daily', name: 'Đời sống & Giao tiếp', icon: 'Coffee', color: 'rose', badge: '2.819 Từ' },
+  { id: 'academic', name: 'Học thuật & IELTS', icon: 'GraduationCap', color: 'violet', badge: '1.844 Từ' },
+  { id: 'health', name: 'Y tế & Sức khỏe', icon: 'HeartPulse', color: 'teal', badge: '2.873 Từ' },
 ];
 
 export const VOCAB_LIST = [
