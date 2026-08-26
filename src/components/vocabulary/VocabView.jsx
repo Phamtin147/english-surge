@@ -11,6 +11,7 @@ import { useStudyProgress } from '../../context/StudyProgressContext';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
 const dictLetterCache = new Map();
+const domainCache = new Map();
 
 export default function VocabView() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -21,13 +22,13 @@ export default function VocabView() {
 
   // 103K Dict Browser State
   const [dictLetter, setDictLetter] = useState('a');
-  const [dictWordsRaw, setDictWordsRaw] = useState([]);
-  const [dictLoading, setDictLoading] = useState(false);
+  const [activeWordsRaw, setActiveWordsRaw] = useState([]);
+  const [dataLoading, setDataLoading] = useState(false);
   const [gridVisibleCount, setGridVisibleCount] = useState(30);
 
   const { progress } = useStudyProgress();
 
-  // Helper to fetch and standardize letter dictionary
+  // Helper to fetch letter dictionary words
   const fetchLetterWords = async (letter) => {
     if (dictLetterCache.has(letter)) {
       return dictLetterCache.get(letter);
@@ -73,37 +74,73 @@ export default function VocabView() {
     return list;
   };
 
-  // Load 103K letter dictionary when dict mode is selected or letter changes
+  // Helper to fetch domain specialized words
+  const fetchDomainWords = async (domainKey) => {
+    if (domainCache.has(domainKey)) {
+      return domainCache.get(domainKey);
+    }
+    const res = await fetch(`/domain/${domainKey}.json`);
+    if (!res.ok) throw new Error('Domain load failed');
+    const list = await res.json();
+    domainCache.set(domainKey, list);
+    return list;
+  };
+
+  // Load words when category or letter changes
   useEffect(() => {
-    if (selectedCategory !== 'dict') return;
-
     let active = true;
-    setDictLoading(true);
 
-    if (dictLetter === 'all') {
-      // Load top popular letters (A, B, C, D, S, T)
-      Promise.all(['a', 'b', 'c', 's'].map(fetchLetterWords))
-        .then((results) => {
-          if (!active) return;
-          const combined = results.flat();
-          setDictWordsRaw(combined);
-          setDictLoading(false);
-        })
-        .catch((err) => {
-          console.error(err);
-          if (active) setDictLoading(false);
-        });
-    } else {
-      fetchLetterWords(dictLetter)
+    if (selectedCategory === 'all') {
+      setActiveWordsRaw(VOCAB_LIST);
+      setDataLoading(false);
+      return;
+    }
+
+    if (['it', 'business', 'travel', 'daily', 'academic', 'health'].includes(selectedCategory)) {
+      setDataLoading(true);
+      fetchDomainWords(selectedCategory)
         .then((list) => {
           if (!active) return;
-          setDictWordsRaw(list);
-          setDictLoading(false);
+          setActiveWordsRaw(list);
+          setDataLoading(false);
         })
         .catch((err) => {
-          console.error(err);
-          if (active) setDictLoading(false);
+          console.error('Error loading domain words:', err);
+          if (active) {
+            // fallback to local list if network issue
+            setActiveWordsRaw(VOCAB_LIST.filter((w) => w.category === selectedCategory));
+            setDataLoading(false);
+          }
         });
+      return;
+    }
+
+    if (selectedCategory === 'dict') {
+      setDataLoading(true);
+      if (dictLetter === 'all') {
+        Promise.all(['a', 'b', 'c', 's'].map(fetchLetterWords))
+          .then((results) => {
+            if (!active) return;
+            const combined = results.flat();
+            setActiveWordsRaw(combined);
+            setDataLoading(false);
+          })
+          .catch((err) => {
+            console.error(err);
+            if (active) setDataLoading(false);
+          });
+      } else {
+        fetchLetterWords(dictLetter)
+          .then((list) => {
+            if (!active) return;
+            setActiveWordsRaw(list);
+            setDataLoading(false);
+          })
+          .catch((err) => {
+            console.error(err);
+            if (active) setDataLoading(false);
+          });
+      }
     }
 
     return () => {
@@ -131,38 +168,25 @@ export default function VocabView() {
     }
   };
 
-  // Full Uncut List of words matching search and category (No artificial 30-word limit!)
+  // Full Uncut List of words matching search and category
   const allFilteredWords = useMemo(() => {
-    if (selectedCategory === 'dict') {
-      const q = searchQuery.trim().toLowerCase();
-      if (!q) return dictWordsRaw;
-      return dictWordsRaw.filter(
-        (item) =>
-          item.word.toLowerCase().includes(q) ||
-          item.vietnamese.toLowerCase().includes(q)
-      );
-    }
-
-    return VOCAB_LIST.filter((item) => {
-      const matchCategory = selectedCategory === 'all' || item.category === selectedCategory;
+    const q = searchQuery.trim().toLowerCase();
+    return activeWordsRaw.filter((item) => {
       const matchLevel = selectedLevel === 'all' || item.level === selectedLevel;
       const matchSearch =
-        searchQuery.trim() === '' ||
-        item.word.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.vietnamese.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.definition.toLowerCase().includes(searchQuery.toLowerCase());
+        !q ||
+        item.word.toLowerCase().includes(q) ||
+        item.vietnamese.toLowerCase().includes(q) ||
+        (item.definition && item.definition.toLowerCase().includes(q));
       
-      return matchCategory && matchLevel && matchSearch;
+      return matchLevel && matchSearch;
     });
-  }, [selectedCategory, selectedLevel, searchQuery, dictWordsRaw]);
+  }, [activeWordsRaw, selectedLevel, searchQuery]);
 
   // Paginated/Sliced subset only for Grid list view performance
   const gridWords = useMemo(() => {
-    if (selectedCategory === 'dict') {
-      return allFilteredWords.slice(0, gridVisibleCount);
-    }
-    return allFilteredWords;
-  }, [allFilteredWords, selectedCategory, gridVisibleCount]);
+    return allFilteredWords.slice(0, gridVisibleCount);
+  }, [allFilteredWords, gridVisibleCount]);
 
   const totalCompletedInCategory = useMemo(() => {
     return allFilteredWords.filter((w) => progress.completedVocab.includes(w.id)).length;
@@ -177,7 +201,7 @@ export default function VocabView() {
       <div className="text-center space-y-3 pt-1 pb-2 flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Kho 103.376+ Từ Vựng & Chuyên Ngành Toàn Diện</span>
+          <span>Kho 103.376+ Từ Vựng & 14.000+ Từ Chuyên Ngành Toàn Diện</span>
         </div>
 
         <TrueFocus
@@ -280,7 +304,7 @@ export default function VocabView() {
                 setSearchQuery(e.target.value);
                 setGridVisibleCount(30);
               }}
-              placeholder={selectedCategory === 'dict' ? `Tìm từ trong kho ${allFilteredWords.length} từ...` : "Tìm kiếm từ vựng trong kho..."}
+              placeholder={`Tìm trong ${allFilteredWords.length} từ...`}
               className="w-full pl-9.5 pr-4 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs sm:text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:border-indigo-500 transition-colors"
             />
           </div>
@@ -297,23 +321,21 @@ export default function VocabView() {
 
         {/* Level filter & View Switcher */}
         <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
-          {/* Level Filter (only for curated categories) */}
-          {selectedCategory !== 'dict' && (
-            <div className="flex items-center gap-1.5 text-xs text-slate-400">
-              <Filter className="w-3.5 h-3.5" />
-              <select
-                value={selectedLevel}
-                onChange={(e) => setSelectedLevel(e.target.value)}
-                className="bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-slate-200 text-xs focus:outline-none focus:border-indigo-500 cursor-pointer"
-              >
-                <option value="all">Tất cả Level</option>
-                <option value="A2">Level A2 (Sơ cấp)</option>
-                <option value="B1">Level B1 (Trung cấp)</option>
-                <option value="B2">Level B2 (Trung cao cấp)</option>
-                <option value="C1">Level C1 (Nâng cao)</option>
-              </select>
-            </div>
-          )}
+          {/* Level Filter */}
+          <div className="flex items-center gap-1.5 text-xs text-slate-400">
+            <Filter className="w-3.5 h-3.5" />
+            <select
+              value={selectedLevel}
+              onChange={(e) => setSelectedLevel(e.target.value)}
+              className="bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-slate-200 text-xs focus:outline-none focus:border-indigo-500 cursor-pointer"
+            >
+              <option value="all">Tất cả Level</option>
+              <option value="A2">Level A2 (Sơ cấp)</option>
+              <option value="B1">Level B1 (Trung cấp)</option>
+              <option value="B2">Level B2 (Trung cao cấp)</option>
+              <option value="C1">Level C1 (Nâng cao)</option>
+            </select>
+          </div>
 
           {/* Mode Switcher Buttons */}
           <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
@@ -349,20 +371,20 @@ export default function VocabView() {
         <div className="flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           <span>
-            {selectedCategory === 'dict' ? (
-              <>Tổng số từ sẵn sàng học: <strong className="text-emerald-400">{allFilteredWords.length}</strong> từ vựng liên tục</>
-            ) : (
-              <>Đã thuộc: <strong className="text-emerald-400">{totalCompletedInCategory}</strong> / {allFilteredWords.length} từ trong nhóm này</>
-            )}
+            Đang hiển thị: <strong className="text-emerald-400">{allFilteredWords.length}</strong> từ vựng chuyên ngành
           </span>
+        </div>
+
+        <div className="text-slate-500 text-xs">
+          Phím tắt: <strong>[Space]</strong> Lật • <strong>[V]</strong> Nghe loa • <strong>[→]</strong> Chuyển từ • <strong>[X]</strong> Xáo trộn
         </div>
       </div>
 
       {/* Main Content Render */}
-      {dictLoading ? (
+      {dataLoading ? (
         <div className="text-center py-20 space-y-3">
           <Loader2 className="w-8 h-8 animate-spin text-indigo-400 mx-auto" />
-          <p className="text-sm text-slate-400">Đang tải bộ từ vựng liên tục...</p>
+          <p className="text-sm text-slate-400">Đang tải toàn bộ dữ liệu từ vựng chuyên ngành...</p>
         </div>
       ) : allFilteredWords.length === 0 ? (
         <div className="text-center py-16 bg-slate-900/40 rounded-3xl border border-slate-800 space-y-3">
@@ -380,7 +402,7 @@ export default function VocabView() {
             ))}
           </div>
 
-          {selectedCategory === 'dict' && gridVisibleCount < allFilteredWords.length && (
+          {gridVisibleCount < allFilteredWords.length && (
             <div className="text-center pt-4">
               <button
                 onClick={() => setGridVisibleCount((prev) => prev + 30)}
