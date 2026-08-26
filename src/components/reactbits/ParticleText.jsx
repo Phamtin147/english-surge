@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-export default function ParticleBanner({
-  text = 'ENGLISH SURGE.',
-  height = 260,
-  particleSize = 2.2,
+export default function ParticleText({
+  text = 'SURGE.',
+  height = 300,
+  particleSize = 2.4,
   particleGap = 4,
-  mouseRadius = 120,
-  colors = ['#38bdf8', '#ec4899', '#a855f7', '#34d399', '#818cf8', '#f59e0b'],
+  mouseRadius = 110,
+  colors = ['#38bdf8', '#ec4899', '#a855f7', '#34d399', '#818cf8'],
   className = '',
 }) {
   const containerRef = useRef(null);
@@ -25,8 +25,8 @@ export default function ParticleBanner({
 
     class Particle {
       constructor(x, y, color) {
-        this.x = x + (Math.random() - 0.5) * 60;
-        this.y = y + (Math.random() - 0.5) * 60;
+        this.x = x + (Math.random() - 0.5) * 50;
+        this.y = y + (Math.random() - 0.5) * 50;
         this.originX = x;
         this.originY = y;
         this.size = particleSize;
@@ -58,7 +58,7 @@ export default function ParticleBanner({
           this.vy += Math.sin(angle) * force * 0.28;
         }
 
-        // Spring return to original text grid coordinate
+        // Spring return to original grid coordinate
         const dxOrigin = this.originX - this.x;
         const dyOrigin = this.originY - this.y;
         this.vx += dxOrigin * this.ease;
@@ -87,7 +87,7 @@ export default function ParticleBanner({
       offCtx.fillStyle = '#ffffff';
 
       // Auto responsive font size
-      const fontSize = Math.min(Math.floor(width / (text.length * 0.62)), 96);
+      const fontSize = Math.min(Math.floor(width / (text.length * 0.65)), 120);
       offCtx.font = `900 ${fontSize}px Outfit, Plus Jakarta Sans, system-ui, sans-serif`;
       offCtx.textAlign = 'center';
       offCtx.textBaseline = 'middle';
@@ -97,13 +97,13 @@ export default function ParticleBanner({
       const data = imgData.data;
 
       particles = [];
-      const gap = width < 640 ? 5 : particleGap;
+      const gap = particleGap;
 
       for (let y = 0; y < height; y += gap) {
         for (let x = 0; x < width; x += gap) {
           const index = (y * width + x) * 4;
           if (data[index + 3] > 128) {
-            // Pick color along horizontal x axis
+            // Pick color along horizontal x axis or patterned
             const colorIdx = Math.floor((x / width) * colors.length) % colors.length;
             const color = colors[colorIdx];
             particles.push(new Particle(x, y, color));
@@ -179,10 +179,7 @@ export default function ParticleBanner({
       className={`relative w-full overflow-hidden rounded-3xl border border-indigo-500/20 bg-slate-950 select-none shadow-2xl shadow-indigo-950/40 ${className}`}
       style={{ minHeight: `${height}px` }}
     >
-      {/* Background ambient lighting */}
-      <div className="absolute inset-0 pointer-events-none bg-radial from-indigo-500/10 via-transparent to-transparent" />
-
-      {/* Particle Canvas */}
+      {/* Canvas */}
       <canvas
         ref={canvasRef}
         className="w-full h-full block cursor-crosshair relative z-10 transition-opacity duration-700"
@@ -192,7 +189,7 @@ export default function ParticleBanner({
       {/* Floating Interactive Badge at bottom */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-800 backdrop-blur-md text-[11px] text-indigo-300 font-medium">
         <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-        <span>Rê chuột vào dòng chữ để tạo sóng xung kích phân rã hạt Particle!</span>
+        <span>Rê chuột vào chữ để tạo sóng xung kích phân rã hạt Particle!</span>
       </div>
     </div>
   );
