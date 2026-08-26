@@ -4,7 +4,7 @@ import { VOCAB_CATEGORIES, VOCAB_LIST } from '../../data/vocabData';
 import VocabFlashcardView from './VocabFlashcardView';
 import VocabCard from './VocabCard';
 import TrueFocus from '../reactbits/TrueFocus';
-import ParticleImage from '../reactbits/ParticleImage';
+import ParticleBanner from '../reactbits/ParticleBanner';
 import { useStudyProgress } from '../../context/StudyProgressContext';
 
 export default function VocabView() {
@@ -48,26 +48,11 @@ export default function VocabView() {
 
   return (
     <div className="space-y-8">
-      {/* Hero Header with ParticleImage & TrueFocus Animation */}
-      <div className="text-center space-y-4 pt-2 pb-4 flex flex-col items-center">
-        {/* Interactive Particle Image Logo */}
-        <div className="relative group cursor-pointer" title="Rê chuột vào để tương tác với hạt Particle!">
-          <ParticleImage
-            imageSrc="/favicon.svg"
-            width={160}
-            height={160}
-            particleSize={2.2}
-            gap={3}
-            mouseRadius={50}
-            force={10}
-            particleColor="#818cf8"
-            className="drop-shadow-[0_0_20px_rgba(99,102,241,0.5)]"
-          />
-          <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] text-indigo-300 font-mono whitespace-nowrap bg-slate-900/90 px-2 py-0.5 rounded-md border border-slate-800 pointer-events-none">
-            ✨ Rê chuột để tán xạ hạt
-          </span>
-        </div>
+      {/* Full-Width Interactive Particle Canvas Banner */}
+      <ParticleBanner height={260} mouseRadius={120} force={14} className="w-full" />
 
+      {/* Hero Header with TrueFocus Animation */}
+      <div className="text-center space-y-3 pt-1 pb-2 flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Kho Từ Vựng Chuyên Ngành Chuẩn Quốc Tế</span>
