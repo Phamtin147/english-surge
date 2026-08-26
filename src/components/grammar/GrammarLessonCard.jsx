@@ -45,10 +45,9 @@ export default function GrammarLessonCard({ lesson }) {
   return (
     <ShaderCard
       className="rounded-2xl overflow-hidden p-0"
-      color1={[0.2, 0.1, 0.5]}
-      color2={[0.1, 0.45, 0.8]}
-      color3={[0.4, 0.1, 0.6]}
-      speed={0.6}
+      color1="#6366f1"
+      color2="#8b5cf6"
+      color3="#06b6d4"
     >
       {/* Lesson Header */}
       <div className="p-6 border-b border-slate-800/80">

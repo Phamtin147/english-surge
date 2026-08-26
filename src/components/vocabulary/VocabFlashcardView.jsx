@@ -17,34 +17,34 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
 
   const shaderPalettes = {
     it: {
-      color1: [0.2, 0.25, 0.85],
-      color2: [0.0, 0.85, 0.95],
-      color3: [0.6, 0.15, 0.9],
+      color1: '#6366f1',
+      color2: '#06b6d4',
+      color3: '#a855f7',
     },
     business: {
-      color1: [0.05, 0.5, 0.4],
-      color2: [0.1, 0.85, 0.65],
-      color3: [0.15, 0.35, 0.8],
+      color1: '#059669',
+      color2: '#10b981',
+      color3: '#0284c7',
     },
     travel: {
-      color1: [0.7, 0.35, 0.05],
-      color2: [0.95, 0.65, 0.1],
-      color3: [0.8, 0.15, 0.4],
+      color1: '#d97706',
+      color2: '#f59e0b',
+      color3: '#e11d48',
     },
     daily: {
-      color1: [0.7, 0.1, 0.35],
-      color2: [0.95, 0.4, 0.5],
-      color3: [0.5, 0.15, 0.8],
+      color1: '#e11d48',
+      color2: '#f43f5e',
+      color3: '#7c3aed',
     },
     academic: {
-      color1: [0.4, 0.1, 0.75],
-      color2: [0.75, 0.2, 0.95],
-      color3: [0.2, 0.35, 0.9],
+      color1: '#7c3aed',
+      color2: '#a855f7',
+      color3: '#4f46e5',
     },
     health: {
-      color1: [0.05, 0.55, 0.55],
-      color2: [0.1, 0.9, 0.75],
-      color3: [0.1, 0.4, 0.7],
+      color1: '#0d9488',
+      color2: '#14b8a6',
+      color3: '#0284c7',
     },
   };
 
