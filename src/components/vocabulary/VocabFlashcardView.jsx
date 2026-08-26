@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, RotateCw, CheckCircle2, Bookmark, Lightbulb, Sparkles, Volume2 } from 'lucide-react';
 import ScrollMask from '../reactbits/ScrollMask';
+import { ShaderBackground } from '../reactbits/ShaderCard';
 import AudioButton from '../common/AudioButton';
 import StarBorder from '../reactbits/StarBorder';
 import { useStudyProgress } from '../../context/StudyProgressContext';
@@ -13,6 +14,41 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
   const { progress, toggleVocabLearned, toggleVocabBookmark } = useStudyProgress();
 
   const currentWord = words[currentIndex] || words[0];
+
+  const shaderPalettes = {
+    it: {
+      color1: [0.2, 0.25, 0.85],
+      color2: [0.0, 0.85, 0.95],
+      color3: [0.6, 0.15, 0.9],
+    },
+    business: {
+      color1: [0.05, 0.5, 0.4],
+      color2: [0.1, 0.85, 0.65],
+      color3: [0.15, 0.35, 0.8],
+    },
+    travel: {
+      color1: [0.7, 0.35, 0.05],
+      color2: [0.95, 0.65, 0.1],
+      color3: [0.8, 0.15, 0.4],
+    },
+    daily: {
+      color1: [0.7, 0.1, 0.35],
+      color2: [0.95, 0.4, 0.5],
+      color3: [0.5, 0.15, 0.8],
+    },
+    academic: {
+      color1: [0.4, 0.1, 0.75],
+      color2: [0.75, 0.2, 0.95],
+      color3: [0.2, 0.35, 0.9],
+    },
+    health: {
+      color1: [0.05, 0.55, 0.55],
+      color2: [0.1, 0.9, 0.75],
+      color3: [0.1, 0.4, 0.7],
+    },
+  };
+
+  const palette = (currentWord && shaderPalettes[currentWord.category]) || shaderPalettes.it;
 
   useEffect(() => {
     setIsFlipped(false);
@@ -109,7 +145,7 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
         />
       </div>
 
-      {/* 3D Flip Card Container */}
+      {/* 3D Flip Card Container with Shader Waves */}
       <div
         className="w-full h-[400px] sm:h-[440px] perspective-1000 cursor-pointer select-none"
         onClick={() => setIsFlipped((prev) => !prev)}
@@ -119,48 +155,51 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
           transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
           className="w-full h-full relative transform-style-preserve-3d"
         >
-          {/* FRONT SIDE */}
-          <div className="absolute inset-0 backface-hidden rounded-3xl p-8 bg-gradient-to-b from-slate-900/90 to-slate-950 border border-slate-800 shadow-2xl flex flex-col justify-between overflow-hidden">
-            {/* Background ambient lighting */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+          {/* FRONT SIDE WITH SHADER BACKGROUND */}
+          <div className="absolute inset-0 backface-hidden rounded-3xl p-8 border border-indigo-500/40 shadow-2xl shadow-indigo-950/50 flex flex-col justify-between overflow-hidden">
+            {/* Dynamic WebGL Shader Waves */}
+            <ShaderBackground color1={palette.color1} color2={palette.color2} color3={palette.color3} speed={0.9} />
 
             <div className="flex items-center justify-between z-10">
-              <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-indigo-500/15 border border-indigo-500/30 text-indigo-300">
+              <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-slate-900/80 border border-indigo-500/30 text-indigo-300 backdrop-blur-sm">
                 {currentWord.category.toUpperCase()} • Level {currentWord.level}
               </span>
-              <span className="text-xs text-slate-400 flex items-center gap-1">
+              <span className="text-xs text-slate-300 flex items-center gap-1 bg-slate-900/70 px-2.5 py-1 rounded-full border border-slate-800 backdrop-blur-sm">
                 <RotateCw className="w-3.5 h-3.5" /> Chạm để lật nghĩa
               </span>
             </div>
 
             <div className="text-center my-auto z-10">
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-3 font-heading">
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-3 font-heading drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">
                 {currentWord.word}
               </h2>
               
               <div className="flex items-center justify-center gap-3">
-                <span className="font-mono text-slate-400 text-base sm:text-lg bg-slate-800/60 px-3 py-1 rounded-lg border border-slate-700/50">
+                <span className="font-mono text-slate-200 text-base sm:text-lg bg-slate-950/80 px-3.5 py-1 rounded-xl border border-slate-700/80 backdrop-blur-sm shadow-md">
                   {currentWord.ipa}
                 </span>
                 <AudioButton text={currentWord.word} size="md" />
               </div>
 
-              <p className="text-slate-400 text-sm mt-3 italic">({currentWord.partOfSpeech})</p>
+              <p className="text-slate-300 text-sm mt-3 italic font-medium">({currentWord.partOfSpeech})</p>
             </div>
 
-            <div className="z-10 flex items-center justify-center gap-2 text-xs text-indigo-400 font-medium">
-              <Sparkles className="w-4 h-4" />
+            <div className="z-10 flex items-center justify-center gap-2 text-xs text-indigo-300 font-semibold bg-slate-950/60 py-1.5 px-3 rounded-full border border-slate-800/80 w-fit mx-auto backdrop-blur-sm">
+              <Sparkles className="w-4 h-4 text-indigo-400" />
               <span>Bấm vào thẻ hoặc phím Space để xem ví dụ & mẹo nhớ</span>
             </div>
           </div>
 
-          {/* BACK SIDE */}
-          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl p-8 bg-gradient-to-b from-slate-900 to-slate-950 border border-indigo-500/40 shadow-2xl shadow-indigo-950/40 flex flex-col justify-between overflow-y-auto">
+          {/* BACK SIDE WITH SHADER BACKGROUND */}
+          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl p-8 border border-indigo-500/40 shadow-2xl shadow-indigo-950/50 flex flex-col justify-between overflow-hidden">
+            {/* Dynamic WebGL Shader Waves */}
+            <ShaderBackground color1={palette.color1} color2={palette.color2} color3={palette.color3} speed={0.9} />
+
             {/* Top header */}
-            <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 z-10">
               <div className="flex items-center gap-2">
                 <span className="text-xl font-bold text-white">{currentWord.word}</span>
-                <span className="text-xs text-slate-400 font-mono">{currentWord.ipa}</span>
+                <span className="text-xs text-slate-300 font-mono bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">{currentWord.ipa}</span>
               </div>
               <AudioButton text={currentWord.word} size="sm" />
             </div>

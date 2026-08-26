@@ -10,7 +10,7 @@ const vertexShaderSource = `
   }
 `;
 
-// GLSL Fragment Shader: Iridescent Fluid Noise Waves
+// GLSL Fragment Shader: Luminous Iridescent Fluid Waves
 const fragmentShaderSource = `
   precision mediump float;
   uniform vec2 u_resolution;
@@ -21,7 +21,6 @@ const fragmentShaderSource = `
   uniform vec3 u_color3;
   varying vec2 vUv;
 
-  // Simplex-style 2D noise
   vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -53,43 +52,38 @@ const fragmentShaderSource = `
     vec2 st = gl_FragCoord.xy / u_resolution.xy;
     st.y = 1.0 - st.y;
 
-    // Mouse influence
+    // Interactive mouse ripples
     vec2 mouse = u_mouse / u_resolution.xy;
     float distToMouse = distance(st, mouse);
-    float mouseWave = sin(distToMouse * 12.0 - u_time * 2.0) * exp(-distToMouse * 3.5);
+    float mouseWave = sin(distToMouse * 16.0 - u_time * 3.0) * exp(-distToMouse * 3.0);
 
-    // Multi-layered noise
-    float n1 = snoise(st * 2.5 + vec2(u_time * 0.15, u_time * 0.08));
-    float n2 = snoise(st * 4.0 - vec2(u_time * 0.1, -u_time * 0.12) + vec2(n1 * 0.6));
-    float combinedNoise = (n1 * 0.6 + n2 * 0.4) + mouseWave * 0.35;
+    // Flowing liquid noise layers
+    float n1 = snoise(st * 2.2 + vec2(u_time * 0.2, u_time * 0.12));
+    float n2 = snoise(st * 3.6 - vec2(u_time * 0.15, -u_time * 0.18) + vec2(n1 * 0.7));
+    float wave = (n1 * 0.6 + n2 * 0.4) + mouseWave * 0.45;
 
-    // Blend vibrant glowing colors
-    float factor1 = smoothstep(-0.6, 0.6, combinedNoise);
-    float factor2 = smoothstep(-0.2, 0.8, sin(combinedNoise * 3.1415 + u_time * 0.3));
+    // Color gradient mixing
+    float t1 = smoothstep(-0.5, 0.5, wave);
+    float t2 = smoothstep(-0.3, 0.7, sin(wave * 3.1415 + u_time * 0.4));
 
-    vec3 col = mix(u_color1, u_color2, factor1);
-    col = mix(col, u_color3, factor2 * 0.7);
+    vec3 col = mix(u_color1, u_color2, t1);
+    col = mix(col, u_color3, t2 * 0.8);
 
-    // Vignette & subtle ambient opacity
-    float alpha = 0.45 + 0.3 * factor1 + 0.25 * (1.0 - distToMouse);
-
-    gl_FragColor = vec4(col * 0.9, alpha);
+    // Glowing brightness
+    float brightness = 0.6 + 0.4 * t1 + 0.25 * exp(-distToMouse * 2.5);
+    gl_FragColor = vec4(col * brightness, 0.85);
   }
 `;
 
-export default function ShaderCard({
-  children,
-  className = '',
-  color1 = [0.25, 0.15, 0.6], // Indigo/Violet
-  color2 = [0.05, 0.65, 0.85], // Cyan
-  color3 = [0.55, 0.1, 0.7],  // Purple
+export function ShaderBackground({
+  color1 = [0.35, 0.15, 0.85], // Vibrant Indigo/Purple
+  color2 = [0.0, 0.8, 0.95],   // Vibrant Cyan
+  color3 = [0.8, 0.1, 0.6],    // Vibrant Magenta
   speed = 1.0,
-  hoverGlow = true,
-  ...props
+  className = '',
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -99,13 +93,11 @@ export default function ShaderCard({
     const gl = canvas.getContext('webgl', { alpha: true, antialias: false });
     if (!gl) return;
 
-    // Compile Shader helper
     const createShader = (type, source) => {
       const shader = gl.createShader(type);
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error(gl.getShaderInfoLog(shader));
         gl.deleteShader(shader);
         return null;
       }
@@ -122,13 +114,11 @@ export default function ShaderCard({
     gl.linkProgram(program);
 
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      console.error(gl.getProgramInfoLog(program));
       return;
     }
 
     gl.useProgram(program);
 
-    // Full screen quad
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(
@@ -141,7 +131,6 @@ export default function ShaderCard({
     gl.enableVertexAttribArray(posAttrLoc);
     gl.vertexAttribPointer(posAttrLoc, 2, gl.FLOAT, false, 0, 0);
 
-    // Uniform locations
     const resUniformLoc = gl.getUniformLocation(program, 'u_resolution');
     const timeUniformLoc = gl.getUniformLocation(program, 'u_time');
     const mouseUniformLoc = gl.getUniformLocation(program, 'u_mouse');
@@ -155,13 +144,13 @@ export default function ShaderCard({
 
     let animationFrameId;
     let startTime = performance.now();
-    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
 
     const resize = () => {
       const rect = container.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      canvas.width = (rect.width || 300) * dpr;
+      canvas.height = (rect.height || 200) * dpr;
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.uniform2f(resUniformLoc, canvas.width, canvas.height);
     };
@@ -169,7 +158,7 @@ export default function ShaderCard({
     resize();
 
     const handleMouseMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
+      const rect = container.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       mouse.targetX = (e.clientX - rect.left) * dpr;
       mouse.targetY = (e.clientY - rect.top) * dpr;
@@ -184,9 +173,8 @@ export default function ShaderCard({
       const elapsed = (now - startTime) * 0.001 * speed;
       gl.uniform1f(timeUniformLoc, elapsed);
 
-      // Smooth mouse interpolation
-      mouse.x += (mouse.targetX - mouse.x) * 0.1;
-      mouse.y += (mouse.targetY - mouse.y) * 0.1;
+      mouse.x += (mouse.targetX - mouse.x) * 0.12;
+      mouse.y += (mouse.targetY - mouse.y) * 0.12;
       gl.uniform2f(mouseUniformLoc, mouse.x, mouse.y);
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -210,27 +198,38 @@ export default function ShaderCard({
   }, [color1, color2, color3, speed]);
 
   return (
+    <div ref={containerRef} className={`absolute inset-0 overflow-hidden pointer-events-none z-0 rounded-[inherit] ${className}`}>
+      <canvas ref={canvasRef} className="w-full h-full block opacity-70 transition-opacity duration-300" />
+      {/* Light frosted glass tint to ensure text contrast while keeping fluid waves completely visible */}
+      <div className="absolute inset-0 bg-slate-950/50 backdrop-blur-[2px]" />
+    </div>
+  );
+}
+
+export default function ShaderCard({
+  children,
+  className = '',
+  color1 = [0.35, 0.15, 0.85],
+  color2 = [0.0, 0.8, 0.95],
+  color3 = [0.8, 0.1, 0.6],
+  speed = 1.0,
+  hoverGlow = true,
+  ...props
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
     <div
-      ref={containerRef}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative overflow-hidden rounded-2xl border transition-all duration-300 ${
+      className={`relative overflow-hidden rounded-3xl border transition-all duration-300 ${
         isHovered && hoverGlow
-          ? 'border-indigo-500/50 shadow-xl shadow-indigo-950/40 scale-[1.01]'
-          : 'border-slate-800/90 shadow-lg'
+          ? 'border-indigo-400/60 shadow-2xl shadow-indigo-900/50 scale-[1.01]'
+          : 'border-slate-800/90 shadow-xl'
       } ${className}`}
       {...props}
     >
-      {/* Background WebGL Shader Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-40 group-hover:opacity-75 transition-opacity duration-500 z-0"
-      />
-
-      {/* Dark frosted glass overlay */}
-      <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-md pointer-events-none z-0" />
-
-      {/* Foreground Content */}
+      <ShaderBackground color1={color1} color2={color2} color3={color3} speed={speed} />
       <div className="relative z-10 p-6 flex flex-col justify-between h-full">
         {children}
       </div>
