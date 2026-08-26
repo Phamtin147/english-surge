@@ -1,11 +1,9 @@
 import React from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import { Volume2 } from 'lucide-react';
 import { useSpeech } from '../../hooks/useSpeech';
 
-export default function AudioButton({ text, size = 'md', className = '' }) {
-  const { speak, isSpeaking, supported } = useSpeech();
-
-  if (!supported) return null;
+export default function AudioButton({ text, audioUrl, size = 'md', className = '' }) {
+  const { speak, isSpeaking } = useSpeech();
 
   const sizeClasses = {
     sm: 'p-1.5 text-xs',
@@ -24,11 +22,11 @@ export default function AudioButton({ text, size = 'md', className = '' }) {
       type="button"
       onClick={(e) => {
         e.stopPropagation();
-        speak(text);
+        speak(text, audioUrl);
       }}
       disabled={isSpeaking}
-      title="Nghe phát âm chuẩn (US Voice)"
-      className={`relative inline-flex items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/25 hover:text-indigo-200 border border-indigo-500/20 transition-all duration-200 active:scale-95 disabled:opacity-50 cursor-pointer ${sizeClasses[size]} ${className}`}
+      title="Nghe phát âm chuẩn giọng bản xứ (US Native Voice)"
+      className={`relative inline-flex items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-400 hover:bg-indigo-500/30 hover:text-indigo-200 border border-indigo-500/30 transition-all duration-200 active:scale-95 disabled:opacity-50 cursor-pointer shadow-sm ${sizeClasses[size]} ${className}`}
     >
       {isSpeaking ? (
         <span className="flex items-center gap-1">
