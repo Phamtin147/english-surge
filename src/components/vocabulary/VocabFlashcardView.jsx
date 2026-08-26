@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, RotateCw, CheckCircle2, Bookmark, Lightbulb, Sparkles, Volume2 } from 'lucide-react';
+import ScrollMask from '../reactbits/ScrollMask';
 import AudioButton from '../common/AudioButton';
 import StarBorder from '../reactbits/StarBorder';
 import { useStudyProgress } from '../../context/StudyProgressContext';
@@ -164,39 +165,41 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
               <AudioButton text={currentWord.word} size="sm" />
             </div>
 
-            {/* Vietnamese Meaning & Definition */}
-            <div className="my-auto space-y-4 text-left">
-              <div>
-                <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wide">Nghĩa tiếng Việt:</span>
-                <h3 className="text-2xl font-bold text-emerald-300 mt-1">
-                  {currentWord.vietnamese}
-                </h3>
-                <p className="text-slate-300 text-xs sm:text-sm mt-1 leading-relaxed">
-                  {currentWord.definition}
-                </p>
-              </div>
-
-              {/* Example */}
-              <div className="bg-slate-950/60 rounded-xl p-3.5 border border-slate-800">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-semibold text-cyan-400">Ví dụ minh họa:</span>
-                  <AudioButton text={currentWord.example} size="sm" />
+            {/* Vietnamese Meaning & Definition with ScrollMask */}
+            <ScrollMask direction="vertical" fadeSize={24} className="flex-1 my-2 overflow-hidden">
+              <div className="space-y-3.5 text-left py-1 pr-1">
+                <div>
+                  <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wide">Nghĩa tiếng Việt:</span>
+                  <h3 className="text-2xl font-bold text-emerald-300 mt-0.5">
+                    {currentWord.vietnamese}
+                  </h3>
+                  <p className="text-slate-300 text-xs sm:text-sm mt-1 leading-relaxed">
+                    {currentWord.definition}
+                  </p>
                 </div>
-                <p className="text-sm font-medium text-slate-200">{currentWord.example}</p>
-                <p className="text-xs text-slate-400 mt-1 italic">{currentWord.exampleVi}</p>
-              </div>
 
-              {/* Mnemonic / Collocations */}
-              {currentWord.mnemonic && (
-                <div className="bg-amber-500/10 rounded-xl p-3 border border-amber-500/20 flex items-start gap-2.5">
-                  <Lightbulb className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="text-xs font-bold text-amber-300">Mẹo ghi nhớ: </span>
-                    <span className="text-xs text-slate-300">{currentWord.mnemonic}</span>
+                {/* Example */}
+                <div className="bg-slate-950/60 rounded-xl p-3.5 border border-slate-800">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-semibold text-cyan-400">Ví dụ minh họa:</span>
+                    <AudioButton text={currentWord.example} size="sm" />
                   </div>
+                  <p className="text-sm font-medium text-slate-200">{currentWord.example}</p>
+                  <p className="text-xs text-slate-400 mt-1 italic">{currentWord.exampleVi}</p>
                 </div>
-              )}
-            </div>
+
+                {/* Mnemonic / Collocations */}
+                {currentWord.mnemonic && (
+                  <div className="bg-amber-500/10 rounded-xl p-3 border border-amber-500/20 flex items-start gap-2.5">
+                    <Lightbulb className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-xs font-bold text-amber-300">Mẹo ghi nhớ: </span>
+                      <span className="text-xs text-slate-300">{currentWord.mnemonic}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </ScrollMask>
 
             <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
               <span>Collocations: {currentWord.collocations?.slice(0, 2).join(', ')}</span>

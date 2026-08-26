@@ -5,6 +5,7 @@ import VocabFlashcardView from './VocabFlashcardView';
 import VocabCard from './VocabCard';
 import TrueFocus from '../reactbits/TrueFocus';
 import ParticleBanner from '../reactbits/ParticleBanner';
+import ScrollMask from '../reactbits/ScrollMask';
 import { useStudyProgress } from '../../context/StudyProgressContext';
 
 export default function VocabView() {
@@ -69,31 +70,33 @@ export default function VocabView() {
         </p>
       </div>
 
-      {/* Category Pills Bar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-        {VOCAB_CATEGORIES.map((cat) => {
-          const isSelected = selectedCategory === cat.id;
-          return (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                isSelected
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 scale-102'
-                  : 'bg-slate-900/90 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800'
-              }`}
-            >
-              {getCategoryIcon(cat.icon)}
-              <span>{cat.name}</span>
-              {cat.badge && (
-                <span className={`text-[10px] px-1.5 py-0.2 rounded-md ${isSelected ? 'bg-indigo-700 text-white' : 'bg-slate-800 text-indigo-300'}`}>
-                  {cat.badge}
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
+      {/* Category Pills Bar with Dynamic ScrollMask */}
+      <ScrollMask direction="horizontal" fadeSize={40} className="w-full">
+        <div className="flex items-center gap-2 py-1 px-1">
+          {VOCAB_CATEGORIES.map((cat) => {
+            const isSelected = selectedCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                  isSelected
+                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 scale-102'
+                    : 'bg-slate-900/90 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800'
+                }`}
+              >
+                {getCategoryIcon(cat.icon)}
+                <span>{cat.name}</span>
+                {cat.badge && (
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded-md ${isSelected ? 'bg-indigo-700 text-white' : 'bg-slate-800 text-indigo-300'}`}>
+                    {cat.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </ScrollMask>
 
       {/* Filters & View Mode Control */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80">
