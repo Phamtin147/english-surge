@@ -25,14 +25,14 @@ export default function TrueFocus({
   }, [manualMode, animationDuration, pauseBetweenAnimations, words.length]);
 
   return (
-    <div className={`relative flex flex-wrap justify-center items-center gap-2 sm:gap-4 py-2 px-2 select-none ${className}`}>
+    <div className={`relative flex flex-nowrap justify-center items-center gap-1 sm:gap-2 md:gap-3 py-2 px-1 select-none whitespace-nowrap overflow-x-auto sm:overflow-visible scrollbar-none max-w-full ${className}`}>
       {words.map((word, index) => {
         const isActive = index === currentIndex;
         return (
           <span
             key={index}
             onMouseEnter={() => setCurrentIndex(index)}
-            className={`relative font-heading font-black text-2xl sm:text-4xl lg:text-5xl tracking-tight transition-all duration-300 cursor-pointer px-3 py-1.5 select-none ${
+            className={`relative font-heading font-black text-lg sm:text-2xl md:text-3xl lg:text-4xl tracking-tight transition-all duration-300 cursor-pointer px-2 sm:px-2.5 py-1 select-none whitespace-nowrap shrink-0 ${
               isActive
                 ? 'text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 via-cyan-200 to-indigo-100 drop-shadow-[0_0_15px_rgba(99,102,241,0.5)]'
                 : 'text-slate-300 hover:text-white opacity-85 hover:opacity-100'
