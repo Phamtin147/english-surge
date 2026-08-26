@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Sparkles, Layers, LayoutGrid, Search, Code, Briefcase, Plane, Coffee, GraduationCap, HeartPulse, Filter, CheckCircle2, Wand2, BookOpen, ChevronLeft, ChevronRight, Loader2, Database } from 'lucide-react';
+import { Sparkles, Layers, LayoutGrid, Search, Code, Briefcase, Plane, Coffee, GraduationCap, HeartPulse, Filter, CheckCircle2, Wand2, BookOpen, ChevronLeft, ChevronRight, Loader2, Database, PlusCircle } from 'lucide-react';
 import { VOCAB_CATEGORIES, VOCAB_LIST } from '../../data/vocabData';
 import VocabFlashcardView from './VocabFlashcardView';
 import VocabCard from './VocabCard';
@@ -23,77 +23,88 @@ export default function VocabView() {
   const [dictLetter, setDictLetter] = useState('a');
   const [dictWordsRaw, setDictWordsRaw] = useState([]);
   const [dictLoading, setDictLoading] = useState(false);
-  const [dictPage, setDictPage] = useState(1);
-  const itemsPerPage = 30;
+  const [gridVisibleCount, setGridVisibleCount] = useState(30);
 
   const { progress } = useStudyProgress();
+
+  // Helper to fetch and standardize letter dictionary
+  const fetchLetterWords = async (letter) => {
+    if (dictLetterCache.has(letter)) {
+      return dictLetterCache.get(letter);
+    }
+    const res = await fetch(`/dict/${letter}.json`);
+    if (!res.ok) throw new Error('Load failed');
+    const data = await res.json();
+    
+    const list = Object.entries(data).map(([key, val], idx) => {
+      let pos = 'noun';
+      let vnMeaning = '';
+      let exEn = '';
+      let exVi = '';
+
+      if (val.s && val.s.length > 0) {
+        pos = val.s[0].pos || 'noun';
+        if (val.s[0].meanings && val.s[0].meanings.length > 0) {
+          vnMeaning = val.s[0].meanings[0].m || '';
+          if (val.s[0].meanings[0].ex && val.s[0].meanings[0].ex.length > 0) {
+            exEn = val.s[0].meanings[0].ex[0].e || '';
+            exVi = val.s[0].meanings[0].ex[0].v || '';
+          }
+        }
+      }
+
+      return {
+        id: `dict-${letter}-${idx + 1}`,
+        word: val.w || key,
+        ipa: val.p || `/${key}/`,
+        partOfSpeech: pos,
+        vietnamese: vnMeaning || 'Xem chi tiết định nghĩa tiếng Việt',
+        category: 'dict',
+        level: 'B1',
+        definition: `${val.w || key} (${pos}): ${vnMeaning}`,
+        example: exEn || `This is an example context for ${val.w || key}.`,
+        exampleVi: exVi || `Đây là ngữ cảnh ví dụ của từ ${val.w || key}.`,
+        collocations: [`learn ${key}`, `use ${key}`, `${key} in context`],
+        mnemonic: `Từ vựng trong kho 103.376 từ điển Anh - Việt.`
+      };
+    });
+
+    dictLetterCache.set(letter, list);
+    return list;
+  };
 
   // Load 103K letter dictionary when dict mode is selected or letter changes
   useEffect(() => {
     if (selectedCategory !== 'dict') return;
 
     let active = true;
-    const fetchLetter = async (letter) => {
-      if (dictLetterCache.has(letter)) {
-        if (active) {
-          setDictWordsRaw(dictLetterCache.get(letter));
+    setDictLoading(true);
+
+    if (dictLetter === 'all') {
+      // Load top popular letters (A, B, C, D, S, T)
+      Promise.all(['a', 'b', 'c', 's'].map(fetchLetterWords))
+        .then((results) => {
+          if (!active) return;
+          const combined = results.flat();
+          setDictWordsRaw(combined);
           setDictLoading(false);
-        }
-        return;
-      }
-
-      setDictLoading(true);
-      try {
-        const res = await fetch(`/dict/${letter}.json`);
-        if (!res.ok) throw new Error('Load failed');
-        const data = await res.json();
-        
-        // Convert map to array of standardized cards
-        const list = Object.entries(data).map(([key, val], idx) => {
-          let pos = 'noun';
-          let vnMeaning = '';
-          let exEn = '';
-          let exVi = '';
-
-          if (val.s && val.s.length > 0) {
-            pos = val.s[0].pos || 'noun';
-            if (val.s[0].meanings && val.s[0].meanings.length > 0) {
-              vnMeaning = val.s[0].meanings[0].m || '';
-              if (val.s[0].meanings[0].ex && val.s[0].meanings[0].ex.length > 0) {
-                exEn = val.s[0].meanings[0].ex[0].e || '';
-                exVi = val.s[0].meanings[0].ex[0].v || '';
-              }
-            }
-          }
-
-          return {
-            id: `dict-${letter}-${idx + 1}`,
-            word: val.w || key,
-            ipa: val.p || `/${key}/`,
-            partOfSpeech: pos,
-            vietnamese: vnMeaning || 'Xem chi tiết định nghĩa tiếng Việt',
-            category: 'dict',
-            level: 'B1',
-            definition: `${val.w || key} (${pos}): ${vnMeaning}`,
-            example: exEn || `This is an example context for ${val.w || key}.`,
-            exampleVi: exVi || `Đây là ngữ cảnh ví dụ của từ ${val.w || key}.`,
-            collocations: [`learn ${key}`, `use ${key}`, `${key} in context`],
-            mnemonic: `Từ vựng trong kho 103.376 từ điển Anh - Việt.`
-          };
+        })
+        .catch((err) => {
+          console.error(err);
+          if (active) setDictLoading(false);
         });
-
-        dictLetterCache.set(letter, list);
-        if (active) {
+    } else {
+      fetchLetterWords(dictLetter)
+        .then((list) => {
+          if (!active) return;
           setDictWordsRaw(list);
           setDictLoading(false);
-        }
-      } catch (err) {
-        console.error('Error loading letter dict:', err);
-        if (active) setDictLoading(false);
-      }
-    };
-
-    fetchLetter(dictLetter);
+        })
+        .catch((err) => {
+          console.error(err);
+          if (active) setDictLoading(false);
+        });
+    }
 
     return () => {
       active = false;
@@ -103,7 +114,7 @@ export default function VocabView() {
   // Handle switching category
   const handleCategoryChange = (catId) => {
     setSelectedCategory(catId);
-    setDictPage(1);
+    setGridVisibleCount(30);
     setSearchQuery('');
   };
 
@@ -120,21 +131,16 @@ export default function VocabView() {
     }
   };
 
-  // Filtered vocabulary list
-  const filteredWords = useMemo(() => {
+  // Full Uncut List of words matching search and category (No artificial 30-word limit!)
+  const allFilteredWords = useMemo(() => {
     if (selectedCategory === 'dict') {
       const q = searchQuery.trim().toLowerCase();
-      let matched = dictWordsRaw;
-      if (q) {
-        matched = dictWordsRaw.filter(
-          (item) =>
-            item.word.toLowerCase().includes(q) ||
-            item.vietnamese.toLowerCase().includes(q)
-        );
-      }
-      // Pagination for dict mode
-      const startIndex = (dictPage - 1) * itemsPerPage;
-      return matched.slice(startIndex, startIndex + itemsPerPage);
+      if (!q) return dictWordsRaw;
+      return dictWordsRaw.filter(
+        (item) =>
+          item.word.toLowerCase().includes(q) ||
+          item.vietnamese.toLowerCase().includes(q)
+      );
     }
 
     return VOCAB_LIST.filter((item) => {
@@ -148,24 +154,19 @@ export default function VocabView() {
       
       return matchCategory && matchLevel && matchSearch;
     });
-  }, [selectedCategory, selectedLevel, searchQuery, dictWordsRaw, dictPage]);
+  }, [selectedCategory, selectedLevel, searchQuery, dictWordsRaw]);
 
-  const totalDictMatches = useMemo(() => {
-    if (selectedCategory !== 'dict') return 0;
-    const q = searchQuery.trim().toLowerCase();
-    if (!q) return dictWordsRaw.length;
-    return dictWordsRaw.filter(
-      (item) =>
-        item.word.toLowerCase().includes(q) ||
-        item.vietnamese.toLowerCase().includes(q)
-    ).length;
-  }, [selectedCategory, searchQuery, dictWordsRaw]);
-
-  const totalDictPages = Math.ceil(totalDictMatches / itemsPerPage) || 1;
+  // Paginated/Sliced subset only for Grid list view performance
+  const gridWords = useMemo(() => {
+    if (selectedCategory === 'dict') {
+      return allFilteredWords.slice(0, gridVisibleCount);
+    }
+    return allFilteredWords;
+  }, [allFilteredWords, selectedCategory, gridVisibleCount]);
 
   const totalCompletedInCategory = useMemo(() => {
-    return filteredWords.filter((w) => progress.completedVocab.includes(w.id)).length;
-  }, [filteredWords, progress.completedVocab]);
+    return allFilteredWords.filter((w) => progress.completedVocab.includes(w.id)).length;
+  }, [allFilteredWords, progress.completedVocab]);
 
   return (
     <div className="space-y-8">
@@ -176,7 +177,7 @@ export default function VocabView() {
       <div className="text-center space-y-3 pt-1 pb-2 flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Kho Từ Vựng 103.376+ Từ & Chuyên Ngành Toàn Diện</span>
+          <span>Kho 103.376+ Từ Vựng & Chuyên Ngành Toàn Diện</span>
         </div>
 
         <TrueFocus
@@ -186,7 +187,7 @@ export default function VocabView() {
         />
 
         <p className="text-sm text-slate-400 max-w-xl mx-auto">
-          Trau dồi vốn từ theo ngữ cảnh thực tế với phiên âm IPA, phát âm bản xứ, collocations và phương pháp lật thẻ 3D ghi nhớ ngắt quãng.
+          Trau dồi vốn từ không giới hạn với âm thanh chuẩn Oxford, phiên âm IPA, nghĩa tiếng Việt chi tiết và chế độ lật thẻ 3D xáo trộn thông minh.
         </p>
       </div>
 
@@ -227,17 +228,31 @@ export default function VocabView() {
               <span>Duyệt Từ Điển 103K Theo Chữ Cái:</span>
             </div>
             <span className="text-xs text-slate-400">
-              Chữ <strong>{dictLetter.toUpperCase()}</strong>: {dictWordsRaw.length} từ
+              Đang chọn: <strong>{dictLetter === 'all' ? 'TẤT CẢ (A, B, C, S)' : `Chữ ${dictLetter.toUpperCase()}`}</strong> ({allFilteredWords.length} từ)
             </span>
           </div>
 
           <div className="flex flex-wrap gap-1.5 justify-center sm:justify-start">
+            <button
+              onClick={() => {
+                setDictLetter('all');
+                setGridVisibleCount(30);
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold font-mono transition-all cursor-pointer ${
+                dictLetter === 'all'
+                  ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30 scale-105'
+                  : 'bg-slate-950 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800'
+              }`}
+            >
+              ALL (TẤT CẢ)
+            </button>
+
             {ALPHABET.map((l) => (
               <button
                 key={l}
                 onClick={() => {
                   setDictLetter(l);
-                  setDictPage(1);
+                  setGridVisibleCount(30);
                 }}
                 className={`w-8 h-8 rounded-xl text-xs font-bold font-mono transition-all cursor-pointer ${
                   dictLetter === l
@@ -263,9 +278,9 @@ export default function VocabView() {
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
-                setDictPage(1);
+                setGridVisibleCount(30);
               }}
-              placeholder={selectedCategory === 'dict' ? `Tìm từ trong chữ ${dictLetter.toUpperCase()}...` : "Tìm kiếm từ vựng trong kho..."}
+              placeholder={selectedCategory === 'dict' ? `Tìm từ trong kho ${allFilteredWords.length} từ...` : "Tìm kiếm từ vựng trong kho..."}
               className="w-full pl-9.5 pr-4 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs sm:text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:border-indigo-500 transition-colors"
             />
           </div>
@@ -329,62 +344,53 @@ export default function VocabView() {
         </div>
       </div>
 
-      {/* Mastery Progress Badge / Pagination Controls */}
+      {/* Mastery Progress Badge */}
       <div className="flex items-center justify-between text-xs text-slate-400 px-2">
         <div className="flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           <span>
             {selectedCategory === 'dict' ? (
-              <>Hiển thị <strong>{filteredWords.length}</strong> từ (Trang {dictPage} / {totalDictPages})</>
+              <>Tổng số từ sẵn sàng học: <strong className="text-emerald-400">{allFilteredWords.length}</strong> từ vựng liên tục</>
             ) : (
-              <>Đã thuộc: <strong className="text-emerald-400">{totalCompletedInCategory}</strong> / {filteredWords.length} từ trong nhóm này</>
+              <>Đã thuộc: <strong className="text-emerald-400">{totalCompletedInCategory}</strong> / {allFilteredWords.length} từ trong nhóm này</>
             )}
           </span>
         </div>
-
-        {/* Dict Pagination Prev/Next */}
-        {selectedCategory === 'dict' && (
-          <div className="flex items-center gap-2">
-            <button
-              disabled={dictPage <= 1}
-              onClick={() => setDictPage((p) => Math.max(1, p - 1))}
-              className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 disabled:opacity-30 hover:bg-indigo-600/30 text-slate-300 transition-colors cursor-pointer"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <span className="font-mono text-indigo-300 text-xs">
-              {dictPage} / {totalDictPages}
-            </span>
-            <button
-              disabled={dictPage >= totalDictPages}
-              onClick={() => setDictPage((p) => Math.min(totalDictPages, p + 1))}
-              className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 disabled:opacity-30 hover:bg-indigo-600/30 text-slate-300 transition-colors cursor-pointer"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        )}
       </div>
 
       {/* Main Content Render */}
       {dictLoading ? (
         <div className="text-center py-20 space-y-3">
           <Loader2 className="w-8 h-8 animate-spin text-indigo-400 mx-auto" />
-          <p className="text-sm text-slate-400">Đang tải bộ từ vựng chữ cái {dictLetter.toUpperCase()}...</p>
+          <p className="text-sm text-slate-400">Đang tải bộ từ vựng liên tục...</p>
         </div>
-      ) : filteredWords.length === 0 ? (
+      ) : allFilteredWords.length === 0 ? (
         <div className="text-center py-16 bg-slate-900/40 rounded-3xl border border-slate-800 space-y-3">
           <Search className="w-8 h-8 text-slate-600 mx-auto" />
           <p className="text-base text-slate-300 font-medium">Không tìm thấy từ vựng phù hợp</p>
           <p className="text-xs text-slate-500">Hãy thử tìm từ khác hoặc bấm "Tra Online" để tra trực tiếp từ điển quốc tế.</p>
         </div>
       ) : viewMode === 'flashcard' ? (
-        <VocabFlashcardView words={filteredWords} onSwitchToList={() => setViewMode('grid')} />
+        <VocabFlashcardView words={allFilteredWords} onSwitchToList={() => setViewMode('grid')} />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredWords.map((word) => (
-            <VocabCard key={word.id} word={word} />
-          ))}
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {gridWords.map((word) => (
+              <VocabCard key={word.id} word={word} />
+            ))}
+          </div>
+
+          {selectedCategory === 'dict' && gridVisibleCount < allFilteredWords.length && (
+            <div className="text-center pt-4">
+              <button
+                onClick={() => setGridVisibleCount((prev) => prev + 30)}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 text-sm font-semibold transition-all shadow-lg hover:scale-102 cursor-pointer"
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>Tải thêm 30 từ tiếp theo (Còn {allFilteredWords.length - gridVisibleCount} từ)</span>
+              </button>
+            </div>
+          )}
         </div>
       )}
 
