@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, RotateCw, CheckCircle2, Bookmark, Lightbulb, Sparkles, Volume2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, RotateCw, CheckCircle2, Bookmark, Lightbulb, Sparkles, Volume2, Shuffle } from 'lucide-react';
 import ScrollMask from '../reactbits/ScrollMask';
 import { ShaderBackground } from '../reactbits/ShaderCard';
 import AudioButton from '../common/AudioButton';
@@ -9,11 +9,19 @@ import { useStudyProgress } from '../../context/StudyProgressContext';
 import confetti from 'canvas-confetti';
 
 export default function VocabFlashcardView({ words, onSwitchToList }) {
+  const [deck, setDeck] = useState(words);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isShuffled, setIsShuffled] = useState(false);
   const { progress, toggleVocabLearned, toggleVocabBookmark } = useStudyProgress();
 
-  const currentWord = words[currentIndex] || words[0];
+  useEffect(() => {
+    setDeck(words);
+    setCurrentIndex(0);
+    setIsShuffled(false);
+  }, [words]);
+
+  const currentWord = deck[currentIndex] || deck[0];
 
   const shaderPalettes = {
     it: {
@@ -71,7 +79,7 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex, words.length]);
+  }, [deck, currentIndex]);
 
   if (!currentWord) {
     return (
@@ -84,8 +92,25 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
   const isLearned = progress.completedVocab.includes(currentWord.id);
   const isBookmarked = progress.bookmarkedVocab.includes(currentWord.id);
 
+  const handleShuffle = () => {
+    const shuffled = [...deck];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    setDeck(shuffled);
+    setCurrentIndex(0);
+    setIsFlipped(false);
+    setIsShuffled(true);
+    confetti({
+      particleCount: 40,
+      spread: 60,
+      origin: { y: 0.7 },
+    });
+  };
+
   const handleNext = () => {
-    if (currentIndex < words.length - 1) {
+    if (currentIndex < deck.length - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
       setCurrentIndex(0); // loop
@@ -96,7 +121,7 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
     if (currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1);
     } else {
-      setCurrentIndex(words.length - 1);
+      setCurrentIndex(deck.length - 1);
     }
   };
 
@@ -115,9 +140,24 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
     <div className="max-w-3xl mx-auto flex flex-col items-center">
       {/* Top Controls & Progress */}
       <div className="w-full flex items-center justify-between mb-4 text-xs sm:text-sm text-slate-400">
-        <span className="font-mono bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800">
-          Thẻ <strong className="text-indigo-400">{currentIndex + 1}</strong> / {words.length}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="font-mono bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800">
+            Thẻ <strong className="text-indigo-400">{currentIndex + 1}</strong> / {deck.length}
+          </span>
+
+          <button
+            onClick={handleShuffle}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+              isShuffled
+                ? 'bg-purple-600 text-white border-purple-500 shadow-md shadow-purple-900/40'
+                : 'bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white'
+            }`}
+            title="Xáo trộn thứ tự các thẻ flashcard ngẫu nhiên"
+          >
+            <Shuffle className={`w-3.5 h-3.5 ${isShuffled ? 'animate-spin-slow text-white' : 'text-purple-400'}`} />
+            <span>{isShuffled ? 'Đã Xáo Trộn' : 'Xáo Trộn Thẻ'}</span>
+          </button>
+        </div>
 
         <div className="flex items-center gap-2">
           <span className="hidden sm:inline text-xs text-slate-400">
@@ -141,7 +181,7 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
       <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden mb-6 border border-slate-800/50">
         <div
           className="h-full bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 transition-all duration-300"
-          style={{ width: `${((currentIndex + 1) / words.length) * 100}%` }}
+          style={{ width: `${((currentIndex + 1) / deck.length) * 100}%` }}
         />
       </div>
 
