@@ -1,5 +1,6 @@
 export const VOCAB_CATEGORIES = [
-  { id: 'all', name: 'Tất cả lĩnh vực', icon: 'Sparkles', color: 'indigo' },
+  { id: 'all', name: 'Tuyển chọn cốt lõi', icon: 'Sparkles', color: 'indigo', badge: '140+ từ' },
+  { id: 'dict', name: '📖 Toàn bộ 103K Từ Điển A-Z', icon: 'BookOpen', color: 'emerald', badge: '103.376 Từ' },
   { id: 'it', name: 'Công nghệ & CNTT', icon: 'Code', color: 'cyan', badge: '40 Từ' },
   { id: 'business', name: 'Kinh doanh & Công sở', icon: 'Briefcase', color: 'emerald', badge: '25 Từ' },
   { id: 'travel', name: 'Du lịch & Khách sạn', icon: 'Plane', color: 'amber', badge: '20 Từ' },
