@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, CheckCircle2, Bookmark, AlertTriangle, Check, X, HelpCircle, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
-import SpotlightCard from '../reactbits/SpotlightCard';
+import ShaderCard from '../reactbits/ShaderCard';
 import DecryptedText from '../reactbits/DecryptedText';
 import AudioButton from '../common/AudioButton';
 import { useStudyProgress } from '../../context/StudyProgressContext';
@@ -43,9 +43,12 @@ export default function GrammarLessonCard({ lesson }) {
   };
 
   return (
-    <SpotlightCard
-      className="border-slate-800 bg-slate-900/90 rounded-2xl overflow-hidden p-0"
-      spotlightColor="rgba(129, 140, 248, 0.15)"
+    <ShaderCard
+      className="rounded-2xl overflow-hidden p-0"
+      color1={[0.2, 0.1, 0.5]}
+      color2={[0.1, 0.45, 0.8]}
+      color3={[0.4, 0.1, 0.6]}
+      speed={0.6}
     >
       {/* Lesson Header */}
       <div className="p-6 border-b border-slate-800/80">
@@ -249,6 +252,6 @@ export default function GrammarLessonCard({ lesson }) {
           )}
         </div>
       )}
-    </SpotlightCard>
+    </ShaderCard>
   );
 }
