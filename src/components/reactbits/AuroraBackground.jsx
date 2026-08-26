@@ -4,20 +4,20 @@ import BlinkingSquares from './BlinkingSquares';
 export default function AuroraBackground({ children, className = '', showRadialGradient = true }) {
   return (
     <div className={`relative min-h-screen bg-slate-950 text-slate-100 overflow-hidden ${className}`}>
-      {/* Blinking Squares Cyberpunk Background */}
+      {/* Blinking Squares Cyberpunk Background - Tiny Delicate Pixels */}
       <BlinkingSquares
-        gridSize={44}
-        squareSizeRatio={0.55}
+        gridSize={20}
+        squareSizeRatio={0.42}
         color="#c084fc"
         secondaryColor="#818cf8"
         direction="right"
-        fadeStart={0.15}
+        fadeStart={0.2}
         fadeEnd={0.95}
-        falloff={1.15}
-        minBrightness={0.08}
-        twinkleSpeed={1.5}
-        twinkleStrength={0.92}
-        mouseRadius={160}
+        falloff={1.1}
+        minBrightness={0.06}
+        twinkleSpeed={1.6}
+        twinkleStrength={0.94}
+        mouseRadius={130}
       />
 
       {/* Subtle deep ambient glow behind the squares */}
