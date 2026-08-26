@@ -1,5 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Sparkles, Layers, LayoutGrid, Search, Code, Briefcase, Plane, Coffee, GraduationCap, HeartPulse, Filter, CheckCircle2, Wand2, BookOpen, ChevronLeft, ChevronRight, Loader2, Database, PlusCircle } from 'lucide-react';
+import { 
+  Sparkles, Layers, LayoutGrid, Search, Code, Briefcase, Plane, Coffee, 
+  GraduationCap, HeartPulse, Filter, CheckCircle2, BookOpen, 
+  Loader2, Database, PlusCircle, Leaf, Scale, Wrench, Shield, Palette, Trophy 
+} from 'lucide-react';
 import { VOCAB_CATEGORIES, VOCAB_LIST } from '../../data/vocabData';
 import VocabFlashcardView from './VocabFlashcardView';
 import VocabCard from './VocabCard';
@@ -12,6 +16,7 @@ import { useStudyProgress } from '../../context/StudyProgressContext';
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
 const dictLetterCache = new Map();
 const domainCache = new Map();
+const ALL_DOMAINS = ['it', 'business', 'health', 'academic', 'biology', 'law', 'engineering', 'military', 'travel', 'arts', 'sports', 'daily'];
 
 export default function VocabView() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -96,7 +101,7 @@ export default function VocabView() {
       return;
     }
 
-    if (['it', 'business', 'travel', 'daily', 'academic', 'health'].includes(selectedCategory)) {
+    if (ALL_DOMAINS.includes(selectedCategory)) {
       setDataLoading(true);
       fetchDomainWords(selectedCategory)
         .then((list) => {
@@ -107,7 +112,6 @@ export default function VocabView() {
         .catch((err) => {
           console.error('Error loading domain words:', err);
           if (active) {
-            // fallback to local list if network issue
             setActiveWordsRaw(VOCAB_LIST.filter((w) => w.category === selectedCategory));
             setDataLoading(false);
           }
@@ -164,6 +168,12 @@ export default function VocabView() {
       case 'GraduationCap': return <GraduationCap className="w-4 h-4" />;
       case 'HeartPulse': return <HeartPulse className="w-4 h-4" />;
       case 'BookOpen': return <BookOpen className="w-4 h-4" />;
+      case 'Leaf': return <Leaf className="w-4 h-4" />;
+      case 'Scale': return <Scale className="w-4 h-4" />;
+      case 'Wrench': return <Wrench className="w-4 h-4" />;
+      case 'Shield': return <Shield className="w-4 h-4" />;
+      case 'Palette': return <Palette className="w-4 h-4" />;
+      case 'Trophy': return <Trophy className="w-4 h-4" />;
       default: return <Sparkles className="w-4 h-4" />;
     }
   };
@@ -201,7 +211,7 @@ export default function VocabView() {
       <div className="text-center space-y-3 pt-1 pb-2 flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Kho 103.376+ Từ Vựng & 14.000+ Từ Chuyên Ngành Toàn Diện</span>
+          <span>Kho 103.376+ Từ Vựng & 12 Lĩnh Vực Chuyên Ngành Toàn Diện</span>
         </div>
 
         <TrueFocus
@@ -211,7 +221,7 @@ export default function VocabView() {
         />
 
         <p className="text-sm text-slate-400 max-w-xl mx-auto">
-          Trau dồi vốn từ không giới hạn với âm thanh chuẩn Oxford, phiên âm IPA, nghĩa tiếng Việt chi tiết và chế độ lật thẻ 3D xáo trộn thông minh.
+          Trau dồi vốn từ không giới hạn qua 12 chuyên ngành sâu sắc với âm thanh chuẩn Oxford, phiên âm IPA và chế độ lật thẻ 3D xáo trộn thông minh.
         </p>
       </div>
 

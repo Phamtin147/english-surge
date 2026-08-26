@@ -1,12 +1,18 @@
 export const VOCAB_CATEGORIES = [
   { id: 'all', name: 'Tuyển chọn cốt lõi', icon: 'Sparkles', color: 'indigo', badge: '100+ từ' },
   { id: 'dict', name: '📖 Toàn bộ 103K Từ Điển A-Z', icon: 'BookOpen', color: 'emerald', badge: '103.376 Từ' },
-  { id: 'it', name: 'Công nghệ & CNTT', icon: 'Code', color: 'cyan', badge: '390 Từ' },
-  { id: 'business', name: 'Kinh doanh & Công sở', icon: 'Briefcase', color: 'emerald', badge: '276 Từ' },
-  { id: 'travel', name: 'Du lịch & Khách sạn', icon: 'Plane', color: 'amber', badge: '716 Từ' },
-  { id: 'daily', name: 'Đời sống & Giao tiếp', icon: 'Coffee', color: 'rose', badge: '2.819 Từ' },
-  { id: 'academic', name: 'Học thuật & IELTS', icon: 'GraduationCap', color: 'violet', badge: '1.844 Từ' },
-  { id: 'health', name: 'Y tế & Sức khỏe', icon: 'HeartPulse', color: 'teal', badge: '2.873 Từ' },
+  { id: 'it', name: 'Công nghệ & CNTT', icon: 'Code', color: 'cyan', badge: '532 Từ' },
+  { id: 'business', name: 'Kinh tế & Tài chính', icon: 'Briefcase', color: 'emerald', badge: '880 Từ' },
+  { id: 'health', name: 'Y tế & Dược phẩm', icon: 'HeartPulse', color: 'teal', badge: '3.170 Từ' },
+  { id: 'academic', name: 'Khoa học & Học thuật', icon: 'GraduationCap', color: 'violet', badge: '1.943 Từ' },
+  { id: 'biology', name: 'Sinh học & Nông nghiệp', icon: 'Leaf', color: 'green', badge: '5.006 Từ' },
+  { id: 'law', name: 'Luật pháp & Pháp lý', icon: 'Scale', color: 'amber', badge: '1.017 Từ' },
+  { id: 'engineering', name: 'Kỹ thuật & Cơ khí', icon: 'Wrench', color: 'orange', badge: '1.274 Từ' },
+  { id: 'military', name: 'Quân sự & Chính trị', icon: 'Shield', color: 'red', badge: '1.302 Từ' },
+  { id: 'travel', name: 'Du lịch & Hàng không', icon: 'Plane', color: 'sky', badge: '717 Từ' },
+  { id: 'arts', name: 'Nghệ thuật & Âm nhạc', icon: 'Palette', color: 'fuchsia', badge: '2.571 Từ' },
+  { id: 'sports', name: 'Thể thao & Giải trí', icon: 'Trophy', color: 'yellow', badge: '519 Từ' },
+  { id: 'daily', name: 'Đời sống & Khẩu ngữ', icon: 'Coffee', color: 'rose', badge: '2.407 Từ' },
 ];
 
 export const VOCAB_LIST = [
