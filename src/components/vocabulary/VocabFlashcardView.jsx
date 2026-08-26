@@ -6,6 +6,7 @@ import { ShaderBackground } from '../reactbits/ShaderCard';
 import AudioButton from '../common/AudioButton';
 import StarBorder from '../reactbits/StarBorder';
 import { useStudyProgress } from '../../context/StudyProgressContext';
+import { useSpeech } from '../../hooks/useSpeech';
 import confetti from 'canvas-confetti';
 
 export default function VocabFlashcardView({ words, onSwitchToList }) {
@@ -56,30 +57,48 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
     },
   };
 
+  const { speak, isSpeaking } = useSpeech();
+
   const palette = (currentWord && shaderPalettes[currentWord.category]) || shaderPalettes.it;
 
   useEffect(() => {
     setIsFlipped(false);
   }, [currentIndex]);
 
-  // Keyboard navigation
+  // Keyboard navigation & voice shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
+      // Don't trigger shortcuts if user is typing in an input field
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+
       if (e.code === 'Space') {
         e.preventDefault();
         setIsFlipped((prev) => !prev);
-      } else if (e.code === 'ArrowRight') {
+      } else if (e.code === 'ArrowRight' || e.code === 'KeyD') {
         e.preventDefault();
         handleNext();
-      } else if (e.code === 'ArrowLeft') {
+      } else if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
         e.preventDefault();
         handlePrev();
+      } else if (e.code === 'KeyV' || e.code === 'KeyS' || e.code === 'KeyR' || e.code === 'ArrowUp' || e.code === 'Enter') {
+        e.preventDefault();
+        if (currentWord) {
+          speak(currentWord.word, currentWord.audioUrl);
+        }
+      } else if (e.code === 'KeyB') {
+        e.preventDefault();
+        if (currentWord) {
+          toggleVocabBookmark(currentWord.id);
+        }
+      } else if (e.code === 'KeyX') {
+        e.preventDefault();
+        handleShuffle();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [deck, currentIndex]);
+  }, [deck, currentIndex, currentWord, speak]);
 
   if (!currentWord) {
     return (
@@ -160,8 +179,8 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="hidden sm:inline text-xs text-slate-400">
-            Phím tắt: [Space] Lật thẻ • [←/→] Chuyển từ
+          <span className="hidden sm:inline text-xs text-indigo-300/80 bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-800">
+            Phím tắt: <strong>[Space]</strong> Lật • <strong>[←/→]</strong> Đổi • <strong>[V]</strong> hoặc <strong>[↑]</strong> Nghe loa • <strong>[B]</strong> Lưu • <strong>[X]</strong> Xáo trộn
           </span>
           <button
             onClick={() => toggleVocabBookmark(currentWord.id)}
@@ -170,7 +189,7 @@ export default function VocabFlashcardView({ words, onSwitchToList }) {
                 ? 'bg-amber-500/20 border-amber-500/40 text-amber-400'
                 : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
             }`}
-            title="Lưu vào Sổ tay yêu thích"
+            title="Lưu vào Sổ tay yêu thích (Phím B)"
           >
             <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-amber-400' : ''}`} />
           </button>
