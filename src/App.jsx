@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StudyProgressProvider } from './context/StudyProgressContext';
 import AuroraBackground from './components/reactbits/AuroraBackground';
-import GlassCursor from './components/reactbits/GlassCursor';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import VocabView from './components/vocabulary/VocabView';
@@ -84,14 +83,6 @@ export default function App() {
   return (
     <StudyProgressProvider>
       <AuroraBackground>
-        {/* Glass Cursor follower */}
-        <GlassCursor
-          size={52}
-          dotSize={6}
-          dotColor="#c084fc"
-          blur={8}
-          glowColor="rgba(168, 85, 247, 0.4)"
-        />
         <MainContent />
       </AuroraBackground>
     </StudyProgressProvider>
