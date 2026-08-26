@@ -177,9 +177,39 @@ export default function DictionaryLookupModal({ isOpen, onClose, initialQuery = 
             )}
 
             {!result && !error && !loading && (
-              <div className="text-center py-12 text-slate-500 space-y-2">
+              <div className="text-center py-6 text-slate-500 space-y-4">
                 <Sparkles className="w-8 h-8 text-indigo-500/50 mx-auto animate-pulse" />
                 <p className="text-sm">Gõ bất kỳ từ tiếng Anh nào để tra nghĩa và nghe phát âm chuẩn quốc tế.</p>
+
+                {/* Popular Trending Words */}
+                <div className="pt-4 border-t border-slate-800/80 text-left">
+                  <span className="text-xs font-semibold text-slate-400 block mb-2">🔥 Từ vựng thịnh hành gợi ý:</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[
+                      'serendipity', 'epiphany', 'resilience', 'quantum', 'phenomenon',
+                      'concurrency', 'orchestration', 'synergy', 'ubiquitous', 'metabolism',
+                      'cardiovascular', 'juxtaposition', 'procrastination', 'empathy'
+                    ].map((w) => (
+                      <button
+                        key={w}
+                        type="button"
+                        onClick={() => {
+                          setSearchTerm(w);
+                          setLoading(true);
+                          setError('');
+                          lookupWordOnline(w).then((d) => {
+                            setLoading(false);
+                            if (d.error) setError(d.message);
+                            else setResult(d);
+                          });
+                        }}
+                        className="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700/60 hover:border-indigo-500/40 text-xs text-indigo-300 transition-colors cursor-pointer"
+                      >
+                        {w}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
           </div>

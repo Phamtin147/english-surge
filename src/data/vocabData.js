@@ -10,7 +10,7 @@ export const VOCAB_CATEGORIES = [
 
 export const VOCAB_LIST = [
   // =========================================================================
-  // --- 💻 CÔNG NGHỆ & CNTT (IT & COMPUTER SCIENCE) ---
+  // --- 💻 CÔNG NGHỆ & CNTT (IT, CLOUD, AI & DEVOPS) ---
   // =========================================================================
   {
     id: 'it-1',
@@ -38,7 +38,7 @@ export const VOCAB_LIST = [
     example: 'We automated our CI/CD pipeline for seamless zero-downtime deployment.',
     exampleVi: 'Chúng tôi tự động hóa quy trình CI/CD để việc triển khai diễn ra liền mạch không gián đoạn.',
     collocations: ['continuous deployment', 'production deployment', 'deployment script'],
-    mnemonic: 'Deploy + ment -> Đưa code từ máy cá nhân lên server production cho người dùng.'
+    mnemonic: 'Deploy + ment -> Đưa code từ máy cá nhân lên server production.'
   },
   {
     id: 'it-3',
@@ -264,6 +264,62 @@ export const VOCAB_LIST = [
     collocations: ['high throughput', 'network throughput', 'maximize throughput'],
     mnemonic: 'Lượng hàng hóa (data) chảy qua đường ống trong 1 giây.'
   },
+  {
+    id: 'it-19',
+    word: 'Encapsulation',
+    ipa: '/ɪnˌkæp.səˈleɪ.ʃən/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Tính đóng gói dữ liệu (OOP)',
+    category: 'it',
+    level: 'B2',
+    definition: 'The bundling of data and the methods that operate on that data into a single unit, hiding internal details.',
+    example: 'Encapsulation prevents unauthorized direct mutation of private object properties.',
+    exampleVi: 'Tính đóng gói ngăn chặn việc sửa đổi trực tiếp trái phép các thuộc tính private của đối tượng.',
+    collocations: ['data encapsulation', 'encapsulation principle', 'encapsulate logic'],
+    mnemonic: 'Bọc kín dữ liệu vào viên nang (capsule), chỉ cho thao tác qua các getter/setter an toàn.'
+  },
+  {
+    id: 'it-20',
+    word: 'Pagination',
+    ipa: '/ˌpædʒ.əˈneɪ.ʃən/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Phân trang dữ liệu',
+    category: 'it',
+    level: 'B1',
+    definition: 'The process of dividing content into discrete pages to optimize loading performance.',
+    example: 'Cursor-based pagination is ideal for infinite scrolling feeds with rapid data updates.',
+    exampleVi: 'Phân trang theo con trỏ là lựa chọn lý tưởng cho luồng cuộn vô tận khi dữ liệu cập nhật liên tục.',
+    collocations: ['cursor pagination', 'offset pagination', 'implement pagination'],
+    mnemonic: 'Chia dữ liệu 10.000 dòng thành từng trang nhỏ 20 dòng để web chạy siêu tốc.'
+  },
+  {
+    id: 'it-21',
+    word: 'Deterministic',
+    ipa: '/dɪˌtɜːr.mɪˈnɪs.tɪk/',
+    partOfSpeech: 'adjective',
+    vietnamese: 'Định thức (cùng đầu vào luôn cho cùng đầu ra)',
+    category: 'it',
+    level: 'C1',
+    definition: 'In which no randomness is involved in the development of future states of the system.',
+    example: 'Pure functions must be completely deterministic and free of side effects.',
+    exampleVi: 'Hàm thuần khiết (pure function) phải hoàn toàn định thức và không gây tác dụng phụ.',
+    collocations: ['deterministic algorithm', 'deterministic behavior', 'deterministic state'],
+    mnemonic: '1 + 1 lúc nào cũng bằng 2, không có yếu tố ngẫu nhiên làm thay đổi kết quả.'
+  },
+  {
+    id: 'it-22',
+    word: 'Virtualization',
+    ipa: '/ˌvɜːr.tʃu.ə.laɪˈzeɪ.ʃən/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Ảo hóa phần cứng',
+    category: 'it',
+    level: 'B2',
+    definition: 'The creation of a virtual rather than actual version of something, such as hardware or operating systems.',
+    example: 'Hardware virtualization allows running multiple isolated Linux VMs on a single physical server.',
+    exampleVi: 'Ảo hóa phần cứng cho phép chạy nhiều máy ảo Linux độc lập trên một máy chủ vật lý.',
+    collocations: ['hardware virtualization', 'virtualization layer', 'server virtualization'],
+    mnemonic: 'Biến 1 máy chủ vật lý thành nhiều máy ảo độc lập.'
+  },
 
   // =========================================================================
   // --- 💼 KINH DOANH & CÔNG SỞ (BUSINESS & CORPORATE) ---
@@ -434,7 +490,7 @@ export const VOCAB_LIST = [
     example: 'Switching to remote work helped the company cut office overhead by 40%.',
     exampleVi: 'Chuyển sang làm việc từ xa giúp công ty cắt giảm 40% chi phí vận hành văn phòng.',
     collocations: ['overhead costs', 'reduce overhead', 'low overhead'],
-    mnemonic: 'Chi phí "đè lên đầu" hàng tháng như tiền thuê nhà, điện, lương bảo vệ dù có bán được hàng hay không.'
+    mnemonic: 'Chi phí "đè lên đầu" hàng tháng như tiền thuê nhà, điện, lương bảo vệ.'
   },
   {
     id: 'biz-13',
@@ -463,6 +519,34 @@ export const VOCAB_LIST = [
     exampleVi: 'Khi mô hình B2C gặp khó, công ty đã chuyển hướng chiến lược sang phần mềm B2B cho doanh nghiệp.',
     collocations: ['strategic pivot', 'pivot to B2B', 'successful pivot'],
     mnemonic: 'Cắm một chân làm trụ và xoay hẳn sang hướng đi mới nhiều tiềm năng hơn.'
+  },
+  {
+    id: 'biz-15',
+    word: 'Bootstrapping',
+    ipa: '/ˈbuːt.stræp.ɪŋ/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Tự lực cánh sinh (khởi nghiệp không gọi vốn ngoài)',
+    category: 'business',
+    level: 'B2',
+    definition: 'Starting a business without external investment, funding growth entirely from revenue.',
+    example: 'Through disciplined bootstrapping, the founders built a $10M ARR company without selling equity.',
+    exampleVi: 'Bằng cách tự lực cánh sinh kỷ luật, các nhà sáng lập đã xây dựng công ty 10 triệu đô la doanh thu hàng năm mà không bán cổ phần.',
+    collocations: ['bootstrapped startup', 'bootstrapping phase', 'bootstrap growth'],
+    mnemonic: 'Tự kéo quai ủng của mình để đứng dậy mà không cần ai cho tiền.'
+  },
+  {
+    id: 'biz-16',
+    word: 'Valuation',
+    ipa: '/ˌvæl.juˈeɪ.ʃən/',
+    partOfSpeech: 'noun',
+    vietnamese: 'Định giá trị doanh nghiệp',
+    category: 'business',
+    level: 'B2',
+    definition: 'An estimation of the monetary worth of a company, asset, or investment.',
+    example: 'The Series B funding round valued the company at an impressive $500 million valuation.',
+    exampleVi: 'Vòng gọi vốn Series B đã định giá công ty ở mức ấn tượng 500 triệu đô la.',
+    collocations: ['company valuation', 'pre-money valuation', 'market valuation'],
+    mnemonic: 'Con số ước tính xem toàn bộ công ty đáng giá bao nhiêu triệu đô.'
   },
 
   // =========================================================================
