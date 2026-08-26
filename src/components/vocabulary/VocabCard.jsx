@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bookmark, CheckCircle2, Lightbulb, Sparkles } from 'lucide-react';
-import ShaderCard from '../reactbits/ShaderCard';
+import SpotlightCard from '../reactbits/SpotlightCard';
 import DecryptedText from '../reactbits/DecryptedText';
 import AudioButton from '../common/AudioButton';
 import { useStudyProgress } from '../../context/StudyProgressContext';
@@ -20,47 +20,21 @@ export default function VocabCard({ word }) {
     health: 'bg-teal-500/10 text-teal-400 border-teal-500/20',
   };
 
-  const shaderPalettes = {
-    it: {
-      color1: '#6366f1',
-      color2: '#06b6d4',
-      color3: '#a855f7',
-    },
-    business: {
-      color1: '#059669',
-      color2: '#10b981',
-      color3: '#0284c7',
-    },
-    travel: {
-      color1: '#d97706',
-      color2: '#f59e0b',
-      color3: '#e11d48',
-    },
-    daily: {
-      color1: '#e11d48',
-      color2: '#f43f5e',
-      color3: '#7c3aed',
-    },
-    academic: {
-      color1: '#7c3aed',
-      color2: '#a855f7',
-      color3: '#4f46e5',
-    },
-    health: {
-      color1: '#0d9488',
-      color2: '#14b8a6',
-      color3: '#0284c7',
-    },
+  const spotlightColors = {
+    it: 'rgba(6, 182, 212, 0.22)',
+    business: 'rgba(16, 185, 129, 0.22)',
+    travel: 'rgba(245, 158, 11, 0.22)',
+    daily: 'rgba(244, 63, 94, 0.22)',
+    academic: 'rgba(168, 85, 247, 0.22)',
+    health: 'rgba(20, 184, 166, 0.22)',
   };
 
-  const currentPalette = shaderPalettes[word.category] || shaderPalettes.it;
+  const spotlight = spotlightColors[word.category] || 'rgba(99, 102, 241, 0.2)';
 
   return (
-    <ShaderCard
-      className="flex flex-col justify-between h-full group"
-      color1={currentPalette.color1}
-      color2={currentPalette.color2}
-      color3={currentPalette.color3}
+    <SpotlightCard
+      className="flex flex-col justify-between h-full group border-slate-800/80 bg-slate-900/90 rounded-3xl p-6 hover:border-indigo-500/40 transition-all duration-300 shadow-xl"
+      spotlightColor={spotlight}
     >
       {/* Header with Category badge, Level and Bookmark */}
       <div>
@@ -73,81 +47,98 @@ export default function VocabCard({ word }) {
             >
               {word.category}
             </span>
-            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-slate-900/90 text-indigo-300 border border-slate-700">
-              {word.level}
+            <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400">
+              Level {word.level}
             </span>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <button
-              type="button"
-              onClick={() => toggleVocabBookmark(word.id)}
-              className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleVocabBookmark(word.id);
+              }}
+              className={`p-1.5 rounded-lg border transition-colors cursor-pointer ${
                 isBookmarked
-                  ? 'text-amber-400 bg-amber-500/10 border border-amber-500/30'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                  ? 'bg-amber-500/20 border-amber-500/40 text-amber-400'
+                  : 'bg-slate-800/60 border-slate-700/60 text-slate-400 hover:text-slate-200'
               }`}
-              title="Lưu vào sổ tay"
+              title="Lưu vào Sổ tay"
             >
-              <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-amber-400' : ''}`} />
+              <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-amber-400' : ''}`} />
             </button>
+
             <button
-              type="button"
-              onClick={() => toggleVocabLearned(word.id)}
-              className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleVocabLearned(word.id);
+              }}
+              className={`p-1.5 rounded-lg border transition-colors cursor-pointer ${
                 isLearned
-                  ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/30'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
+                  ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-400'
+                  : 'bg-slate-800/60 border-slate-700/60 text-slate-400 hover:text-slate-200'
               }`}
               title={isLearned ? 'Đã thuộc từ này' : 'Đánh dấu đã thuộc'}
             >
-              <CheckCircle2 className={`w-4 h-4 ${isLearned ? 'text-emerald-400 fill-emerald-500/20' : ''}`} />
+              <CheckCircle2 className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
 
-        {/* Word Title & Audio */}
-        <div className="flex items-baseline justify-between gap-2 mb-1">
-          <h3 className="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors font-heading">
-            <DecryptedText text={word.word} animateOn="hover" speed={30} />
-          </h3>
-          <AudioButton text={word.word} size="sm" />
+        {/* Word and IPA */}
+        <div className="space-y-1 mb-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-black text-white group-hover:text-indigo-300 transition-colors font-heading tracking-tight">
+              <DecryptedText
+                text={word.word}
+                speed={35}
+                maxIterations={12}
+                revealDirection="start"
+                animateOn="hover"
+                className="cursor-pointer"
+              />
+            </h3>
+            <AudioButton text={word.word} size="sm" />
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-xs text-indigo-300 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
+              {word.ipa}
+            </span>
+            <span className="text-xs text-slate-300 italic">({word.partOfSpeech})</span>
+          </div>
         </div>
 
-        {/* IPA & Part of speech */}
-        <div className="flex items-center gap-2 text-xs text-slate-400 mb-3 font-mono">
-          <span>{word.ipa}</span>
-          <span>•</span>
-          <span className="italic text-slate-400 font-sans">({word.partOfSpeech})</span>
-        </div>
-
-        {/* Vietnamese Translation */}
-        <div className="mb-3">
-          <p className="text-sm font-bold text-emerald-300 leading-snug">
-            {word.vietnamese}
-          </p>
-          <p className="text-xs text-slate-300 mt-1 leading-relaxed line-clamp-2">
+        {/* Vietnamese Meaning & Definition */}
+        <div className="space-y-1.5 mb-4">
+          <p className="text-sm font-semibold text-emerald-400">{word.vietnamese}</p>
+          <p className="text-xs text-slate-200 line-clamp-2 leading-relaxed">
             {word.definition}
           </p>
         </div>
 
         {/* Example Sentence */}
-        <div className="p-2.5 rounded-xl bg-slate-950/85 border border-slate-800/90 mb-3">
-          <div className="flex items-center justify-between text-[11px] text-cyan-400 font-medium mb-1">
-            <span>Ví dụ:</span>
-            <AudioButton text={word.example} size="sm" />
+        {word.example && (
+          <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 mb-3 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-semibold text-cyan-400 uppercase tracking-wider">Ví dụ:</span>
+              <AudioButton text={word.example} size="sm" />
+            </div>
+            <p className="text-xs text-slate-200 leading-snug">{word.example}</p>
+            <p className="text-[11px] text-slate-300 italic">{word.exampleVi}</p>
           </div>
-          <p className="text-xs text-slate-200 font-medium">{word.example}</p>
-          <p className="text-[11px] text-slate-400 mt-0.5 italic">{word.exampleVi}</p>
-        </div>
+        )}
       </div>
 
-      {/* Mnemonic / Memory tip & Collocations */}
-      <div className="mt-2 pt-2 border-t border-slate-800/80 flex flex-col gap-1.5">
+      {/* Footer Details: Collocations & Mnemonic */}
+      <div className="pt-3 border-t border-slate-800/60 space-y-2">
         {word.collocations && word.collocations.length > 0 && (
-          <div className="flex flex-wrap gap-1 text-[10px]">
+          <div className="flex flex-wrap gap-1">
             {word.collocations.slice(0, 2).map((col, idx) => (
-              <span key={idx} className="px-2 py-0.5 rounded-md bg-slate-900/90 text-slate-300 border border-slate-700/50">
+              <span
+                key={idx}
+                className="text-[10px] bg-slate-800/80 border border-slate-700/60 text-slate-300 px-2 py-0.5 rounded-md font-mono"
+              >
                 {col}
               </span>
             ))}
@@ -161,6 +152,6 @@ export default function VocabCard({ word }) {
           </div>
         )}
       </div>
-    </ShaderCard>
+    </SpotlightCard>
   );
 }
