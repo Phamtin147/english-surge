@@ -34,6 +34,7 @@ npm run build
 ```bash
 npm run deploy:surge
 # hoặc:
-npx surge dist my-english-surge.surge.sh
+surge dist english-surge-tin.surge.sh
 ```
-*(Dự án đã tự động cấu hình file `200.html` trong `dist` để đảm bảo routing trên Surge hoạt động mượt mà không gặp lỗi 404).*
+Trang web sẽ hoạt động trực tiếp tại: **https://english-surge-tin.surge.sh**
+*(Dự án đã tự động cấu hình file `200.html` và `CNAME` trong `dist` để đảm bảo routing và domain cố định).*

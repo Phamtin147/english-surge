@@ -35,7 +35,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-slate-400">
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800">
               <Terminal className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Deploy: <code className="text-indigo-300">surge dist/ english-surge.surge.sh</code></span>
+              <span>Deploy: <code className="text-indigo-300">surge dist english-surge-tin.surge.sh</code></span>
             </div>
 
             <button
